@@ -1,12 +1,12 @@
 'use client'
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { StoreContext } from "../StoreContext/StoreContext";
 import axios from "axios";
 
-export default function PlaceOrder() {
-    const { lists, cartItems, getTotalCartAmount, url, token} = useContext(StoreContext)
+const PlaceOrder = () => {
+    const { lists, cartItems, getTotalCartAmount, url, token } = useContext(StoreContext)
 
-   const [data, setData] = useState({
+    const [data, setData] = useState({
         firstName: "",
         lastName: "",
         email: "",
@@ -26,9 +26,15 @@ export default function PlaceOrder() {
 
     const placeOrder = async (event) => {
         event.preventDefault();
+
+        if (!token) {
+            alert("กรุณา Login ก่อนทำการสั่งซื้อ");
+            return;
+        }
+
         let orderItems = [];
-        lists.map((item)=>{
-            if (cartItems[item._id]>0) {
+        lists.map((item) => {
+            if (cartItems[item._id] > 0) {
                 let itemInfo = item;
                 itemInfo["quantity"] = cartItems[item._id];
                 orderItems.push(itemInfo)
@@ -36,27 +42,23 @@ export default function PlaceOrder() {
         })
         // console.log(orderItems);
         let orderData = {
-            address:data,
-            items:orderItems,
-            amount:getTotalCartAmount()
+            address: data,
+            items: orderItems,
+            amount: getTotalCartAmount()
         }
-        let response = await axios.post(url+"/api/order/place", orderData,
-            {
-                header: {token}
-            }
-        )
+        let response = await axios.post(
+            url + "/api/order/place",
+            orderData,
+            { headers: { Authorization: `Bearer ${token}` } }   // ✅
+        );
         if (response.data.success) {
-            const {session_url} = response.data;
+            const { session_url } = response.data;
             window.location.replace(session_url);
         }
         else {
-            alert("Err");
+            alert("Error");
         }
     }
-
-    useEffect(()=>{
-        console.log(data);
-    }, [data])
 
     return (
         <>
@@ -70,12 +72,12 @@ export default function PlaceOrder() {
                     <input required name='email' onChange={onChangeHandler} value={data.email} type="Email" placeholder="Email address" />
                     <input required name='street' onChange={onChangeHandler} value={data.street} type="text" placeholder="Street" />
                     <div>
-                        <input required name='city' onChange={onChangeHandler} value={data.city} type="text" placeholder="City"/>
-                        <input required name='state' onChange={onChangeHandler} value={data.state} type="text" placeholder="State"/>
+                        <input required name='city' onChange={onChangeHandler} value={data.city} type="text" placeholder="City" />
+                        <input required name='state' onChange={onChangeHandler} value={data.state} type="text" placeholder="State" />
                     </div>
                     <div>
-                        <input required name='zipcode' onChange={onChangeHandler} value={data.zipcode} type="text" placeholder="Zip code"/>
-                        <input required name='country' onChange={onChangeHandler} value={data.country} type="text" placeholder="Country"/>
+                        <input required name='zipcode' onChange={onChangeHandler} value={data.zipcode} type="text" placeholder="Zip code" />
+                        <input required name='country' onChange={onChangeHandler} value={data.country} type="text" placeholder="Country" />
                     </div>
                     <input required name='phone' onChange={onChangeHandler} value={data.phone} type="text" placeholder="Phone" />
                 </div>
@@ -94,3 +96,5 @@ export default function PlaceOrder() {
         </>
     )
 }
+
+export default PlaceOrder

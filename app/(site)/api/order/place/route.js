@@ -1,12 +1,13 @@
-import { NextResponse } from "next/server";
 import connectMongoDB from "@/libs/mongodb";
+import { NextResponse } from "next/server";
 import { verifyToken } from "@/middleware/auth";
 import { placeOrder } from "@/controllers/orderController";
 
 export async function POST(req) {
   try {
     await connectMongoDB();
-    const userId = verifyToken(req);
+
+    const userId = verifyToken(req); // ✅ ได้ userId
     const body = await req.json();
 
     if (!userId) {
@@ -21,12 +22,14 @@ export async function POST(req) {
       items: body.items,
       amount: body.amount,
       address: body.address,
-      baseUrl: process.env.BASE_URL,
     });
 
     return NextResponse.json(result);
-  } catch (err) {
-    console.log(err);
-    return NextResponse.json({ success: false, message: err.message });
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
   }
 }
