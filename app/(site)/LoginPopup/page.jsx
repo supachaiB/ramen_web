@@ -1,7 +1,7 @@
 'use client'
 import { assets } from "@/public/assets/assets"
 import { useContext, useEffect, useState } from "react"
-import { StoreContext } from "../StoreContext/StoreContext"
+import { StoreContext } from "../../../StoreContext/StoreContext"
 import axios from "axios"
 
 export default function LoginPopup ({ setShowLogin })  {

@@ -1,7 +1,7 @@
 'use client'
 import { assets } from "@/public/assets/assets";
 import { useContext } from "react";
-import { StoreContext } from "../StoreContext/StoreContext";
+import { StoreContext } from "../../../StoreContext/StoreContext";
 import './Navbar.css'
 import Link from "next/link";
 
@@ -36,7 +36,7 @@ export default function Navbar({ setShowLogin }) {
               : <div className="navbar-profile">
                 <img src={assets.profile_icon} />
                 <div className="nav-profile-dropdown">
-                  <img src={assets.bag_icon} alt="" /><p>Orders</p>
+                  <Link href="/myorders" className="cursor-pointer"><img src={assets.bag_icon} alt="" /><p>Orders</p></Link>
                   <hr />
                   <Link href="/" onClick={logout} className="cursor-pointer"><img src={assets.logout_icon} alt="" />Logout</Link>
                 </div>

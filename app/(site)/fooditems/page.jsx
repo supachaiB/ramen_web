@@ -2,7 +2,7 @@
 
 import { assets } from "@/public/assets/assets";
 import { useContext } from "react";
-import { StoreContext } from "../StoreContext/StoreContext"
+import { StoreContext } from "../../../StoreContext/StoreContext"
 
 
 export default function FoodItem() {

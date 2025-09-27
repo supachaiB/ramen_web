@@ -1,5 +1,5 @@
 
-import FoodItem from "./FoodItem/page.jsx";
+import FoodItem from "./fooditems/page.jsx";
 
 export default function Page() {
 

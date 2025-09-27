@@ -33,7 +33,7 @@ export const removeFromCart = async ({ userId, itemId}) => {
     return { success: true, message: "Deleted From Cart" };
 }
 
-// //fetch user cart data
+//fetch user cart data
 export const getCart = async ({ userId }) => {
     const user = await userModel.findById(userId);
     if (!user) throw new Error("User not found");

@@ -1,6 +1,6 @@
 'use client'
 import "../globals.css";
-import StoreContextProvider from "./StoreContext/StoreContext";
+import StoreContextProvider from "../../StoreContext/StoreContext";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
 import { useState } from "react";

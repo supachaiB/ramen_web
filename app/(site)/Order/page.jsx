@@ -1,6 +1,6 @@
 'use client'
 import { useContext, useState } from "react";
-import { StoreContext } from "../StoreContext/StoreContext";
+import { StoreContext } from "../../../StoreContext/StoreContext";
 import axios from "axios";
 
 const PlaceOrder = () => {
