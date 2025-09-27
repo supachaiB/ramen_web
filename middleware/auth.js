@@ -16,10 +16,12 @@
 import jwt from "jsonwebtoken";
 
 export const verifyToken = (req) => {
-  const authHeader = req.headers.get("authorization");
+  // authorization - frontend or browser , token - backend or test postman
+  const authHeader = req.headers.get("authorization") || req.headers.get("token");
   if (!authHeader) throw new Error("Not Authorized. Login Again");
 
-  const token = authHeader.split(" ")[1]; // "Bearer <token>"
+  // includes - frontend or browser , split - backend or test postman
+  const token = authHeader.includes("Bearer ") ? authHeader.split(" ")[1] : authHeader;
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     return decoded.id; // ✅ คืน userId
