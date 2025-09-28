@@ -9,5 +9,6 @@ export const assets = {
     cross_icon: "/assets/cross_icon.png",
     bag_icon: "/assets/bag_icon.png",
     profile_icon: "/assets/profile_icon.png",
-    logout_icon: "/assets/logout_icon.png"
+    logout_icon: "/assets/logout_icon.png",
+    parcel_icon: "/assets/parcel_icon.png"
 }

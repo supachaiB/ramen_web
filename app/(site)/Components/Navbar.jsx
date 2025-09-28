@@ -19,13 +19,13 @@ export default function Navbar({ setShowLogin }) {
         Logo
         <ul className="flex gap-10">
           <Link href="/" className="cursor-pointer">Home</Link>
-          <Link href="/Gallery" className="cursor-pointer">Gallery</Link>
-          <Link href="/Reviews" className="cursor-pointer">Reviews</Link>
-          <Link href="/Contact" className="cursor-pointer">Contact</Link>
+          <Link href="/gallery" className="cursor-pointer">Gallery</Link>
+          <Link href="/reviews" className="cursor-pointer">Reviews</Link>
+          <Link href="/contact" className="cursor-pointer">Contact</Link>
         </ul>
         <div className="flex gap-10">
           <img src={assets.search_icon} alt="" />
-          <Link href="/Cart" className="relative cursor-pointer">
+          <Link href="/cart" className="relative cursor-pointer">
             <img src={assets.basket_icon} alt="" />
             <div className={getTotalCartAmount() === 0
               ? ""

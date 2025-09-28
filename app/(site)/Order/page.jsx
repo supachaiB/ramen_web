@@ -1,7 +1,8 @@
 'use client'
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../../StoreContext/StoreContext";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const PlaceOrder = () => {
     const { lists, cartItems, getTotalCartAmount, url, token } = useContext(StoreContext)
@@ -59,6 +60,14 @@ const PlaceOrder = () => {
             alert("Error");
         }
     }
+
+    const router = useRouter();
+
+    useEffect(()=>{
+        if (!token || getTotalCartAmount() === 0) {
+            router.push('/cart')
+        }
+    }, [token])
 
     return (
         <>

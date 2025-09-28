@@ -40,29 +40,22 @@ export default function CartPage() {
                 <div>
                     <div>
                         <h2>Cart Totals</h2>
-                        {/* <div>
-                            <p>Subtotal</p>
-                            <p>{getTotalCartAmount()}</p>
-                         </div>
-                         <hr /> */}
-                        {/* <div>
-                            <p>Delivery Fee</p>
-                            <p>${2}</p>
-                         </div> */}
                         <hr />
                         <div>
                             <p>Total</p>
                             <b>${getTotalCartAmount()}</b>
                         </div>
                     </div>
-                    <button className="cursor-pointer">PROCEED TO CHECKOUT</button>
+                    <Link href="/order">
+                        <button className="cursor-pointer">PROCEED TO CHECKOUT</button>
+                    </Link>
                 </div>
                 <div>
                     <div>
                         <p>If you have a promo code, Enter it here</p>
                         <div>
                             <input type="text" placeholder="promo code" />
-                            <Link href="/Order"><button className="">Submit</button></Link>
+                            <button className="">Submit</button>
                         </div>
                     </div>
                 </div>
