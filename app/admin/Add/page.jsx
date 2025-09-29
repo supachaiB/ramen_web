@@ -75,12 +75,13 @@ export default function Add() {
                         <p>Product category</p>
                         <select onChange={onChangeHandler} name="category">
                             <option value="ramen">Ramen</option>
+                            <option value="ramen">Side Menu</option>
                             <option value="drink">Drink</option>
                         </select>
                     </div>
                     <div className="add-price flex-col">
                         <p>Product price</p>
-                        <input onChange={onChangeHandler} value={data.price} type="Number" name="price" placeholder="$20" />
+                        <input onChange={onChangeHandler} value={data.price} type="Number" name="price" placeholder="฿20" />
                     </div>
                 </div>
                 <button type="submit" className="add-btn">ADD</button>

@@ -16,7 +16,7 @@ export default function FoodItem() {
     return (
         <>
             <h1 className="text-4xl">Menu</h1>
-            <div className="flex gap-10">
+            <div className="grid gap-3 grid-cols-3 m-10">
                 {lists.map((l) => {
                     const count = cartItems[l._id] || 0
                     return (
