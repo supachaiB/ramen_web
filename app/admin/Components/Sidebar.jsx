@@ -15,6 +15,15 @@ export default function Sidebar() {
                     <div className="sidebar-option border-1 border-gray-100">
                         <Link href="/admin/orders">Orders</Link>
                     </div>
+                    <div className="sidebar-option border-1 border-gray-100">
+                        <Link href="/admin/addgallery">Add gallerys</Link>
+                    </div>
+                    <div className="sidebar-option border-1 border-gray-100">
+                        <Link href="/admin/listgallery">List gallerys</Link>
+                    </div>
+                    <div className="sidebar-option border-1 border-gray-100">
+                        <Link href="/admin/review">reviews</Link>
+                    </div>
                 </div>
             </div>
         </>
