@@ -1,4 +1,5 @@
 import connectMongoDB from "@/libs/mongodb";
+import { verifyToken } from "@/middleware/auth";
 import reviewModel from "@/models/reviewModel";
 import { NextResponse } from "next/server";
 
@@ -17,8 +18,10 @@ export async function GET(req) {
 export async function POST(req) {
   try {
     await connectMongoDB();
+
+    const userId = verifyToken(req); 
     const body = await req.json();
-    const { foodId, userId, rating, title, comment } = body;
+    const { foodId, rating, title, comment } = body;
 
     if (!foodId || !userId || !rating || !title || !comment) {
       return NextResponse.json({ success: false, message: "Missing fields" }, { status: 400 });

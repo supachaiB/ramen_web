@@ -1,36 +1,38 @@
 'use client'
 import { assets } from "@/public/assets/assets";
 import { StoreContext } from "@/StoreContext/StoreContext";
+import { useSearchParams } from "next/navigation";
 import { useContext, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
 export default function reviewPopup() {
-    const { url } = useContext(StoreContext);
+    const { url, token } = useContext(StoreContext);
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0); // สำหรับ effect hover ดาว
     const [title, setTitle] = useState("");
     const [comment, setComment] = useState("");
-    //
-    const foodId = "68da05823bafb042d3b1811c"
-    const userId = "68cdbb575d07c2f94592ad55"
+    const searchParams = useSearchParams();
+    const itemId = searchParams.get("itemId")
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!rating || !title || !comment) {
+        if (!itemId || !rating || !title || !comment) {
             alert("Please fill all fields");
+        }
+
+        if (!token) {
+            alert("กรุณา Login ก่อนทำการสั่งซื้อ");
+            return;
         }
 
         try {
             const res = await fetch(url + "/api/reviews", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { Authorization: `Bearer ${token}` },
 
                 body: JSON.stringify({
-                    foodId,
-                    userId,
+                    foodId: itemId,
                     rating,
                     title,
                     comment,
@@ -47,16 +49,15 @@ export default function reviewPopup() {
             } else {
                 alert(" Error: " + data.message);
             }
-                        console.log(foodId, userId, rating, title, comment)
 
-        } catch (error) {
+        } catch (err) {
             console.error(err);
             alert("Server error");
-        } 
+        }
     };
 
     return (
-        <div className="absolute z-10 w-[100%] h-[100%] bg-gray-400 ">
+        <div >
             <form
                 onSubmit={handleSubmit}
                 className="bg-white p-6 rouded-lg  grid grid-cols-2"
@@ -66,6 +67,7 @@ export default function reviewPopup() {
                     <div className="flex gap-1">
                         {[1, 2, 3, 4, 5].map((star) => (
                             <FaStar
+
                                 key={star}
                                 size={30}
                                 className={`cursor-pointer ${star <= (hover || rating) ? "text-yellow-400" : "text-gray-300"
