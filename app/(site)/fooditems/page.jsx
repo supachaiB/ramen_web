@@ -1,23 +1,29 @@
 'use client'
 
 import { assets } from "@/public/assets/assets";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { StoreContext } from "../../../StoreContext/StoreContext"
+import ExploreMenu from "../Components/ExploreMenu";
+import Link from "next/link";
+import { FaStar } from "react-icons/fa"; 
 
 
 export default function FoodItem() {
     const { url, lists, cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
-    // const [itemCount, setItemCount] = useState(0)
+ // filter เมนู
+    const filteredLists = selectedCategory
+        ? lists.filter(l => l.category === selectedCategory)
+        : lists;
 
-
-    
 
     return (
         <>
+            <ExploreMenu onCategorySelect={setSelectedCategory} />
             <h1 className="text-4xl">Menu</h1>
             <div className="grid gap-3 grid-cols-3 m-10">
-                {lists.map((l) => {
+                {filteredLists.map((l) => {
                     const count = cartItems[l._id] || 0
                     return (
                         <div key={l._id}>
@@ -48,10 +54,24 @@ export default function FoodItem() {
                                 </div>
                             )}
 
-                            <div>
-                                <p>{l.name}</p>
-                                <img src={assets.rating_starts} alt="" />
+                            {/* รายละเอียด */}
+                            <div className="mt-3">
+                                <p className="font-bold">{l.name}</p>
+
+                                {/* ⭐ แทน assets.rating_starts */}
+                                <div className="flex text-yellow-500">
+                                    {[...Array(5)].map((_, i) => (
+                                        <FaStar key={i} />
+                                    ))}
+                                </div>
+
+                                <Link href={`/reviewPopup?itemId=${l._id}`}>
+                                    <button className="cursor-pointer bg-blue-500 text-white px-3 py-1 rounded mt-2">
+                                        Post review
+                                    </button>
+                                </Link>
                             </div>
+                            
                             <p>รายละเอียด: {l.description}</p>
                             <p>ประเภท: {l.category}</p>
                             <p>ราคา: ฿{l.price}</p>
@@ -61,7 +81,7 @@ export default function FoodItem() {
             </div>
 
         </>
-    );
+    )
 
 }
 
