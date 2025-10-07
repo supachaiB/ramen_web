@@ -66,18 +66,20 @@ export default function Gallery() {
         <>
             <div className="text-center text-2xl font-bold my-5">Gallery</div>
 
-            {/* แสดงรูปเล็ก grid */}
-            <div className="grid gap-3 grid-cols-3 m-10">
+            {/* grid */}
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-5">
                 {galleries.map((g, i) => (
-                    <div key={g._id} className="cursor-pointer">
+                    <div key={g._id} className="cursor-pointer rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-transform hover:-translate-y-1">
                         <img
                             src={`${url}/uploads/${g.imageUrl}`}
                             alt={g.name}
-                            className="w-65 h-65 object-cover rounded hover:scale-105 transition-transform"
+                            className="w-full h-48 object-cover "
                             onClick={() => openModal(i)}
                         />
-                        <p>{g.name}</p>
-                        <p>{g.category}</p>
+                         <div className="p-2 text-center">
+                            <p className="font-semibold">{g.name}</p>
+                            <p className="text-gray-500 text-sm">{g.category}</p>
+                        </div>
                     </div>
                 ))}
             </div>

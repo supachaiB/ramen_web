@@ -41,22 +41,26 @@ export default function Reviews() {
     };
 
     return (
-        <div className="p-4">
-            <h1 className="text-xl font-bold mb-4">คะแนนของอาหาร</h1>
+        <div className="p-6 max-w-5xl mx-auto">
+            <h1 className="text-2xl font-bold mb-6 text-center">คะแนนของอาหาร</h1>
             {reviews.length === 0 ? (
-                <p className="text-gray-500">ยังไม่มีรีวิว</p>
+                <p className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">ยังไม่มีรีวิว</p>
             ) : (
                 <div className="space-y-4 grid grid-cols-2 gap-4">
                     {reviews.map((review) => (
-                        <div key={review._id} className="border p-3 rounded shadow-sm">
-                            <div className="flex items-center gap-2">
+                        <div key={review._id} 
+                        className="bg-white border border-gray-200 
+                        rounded-2xl shadow-sm 
+                        hover:shadow-md transition-all duration-200 p-5"
+                        >
+                            <div className="flex items-center justify-between mb-2">
                                 {renderStars(review.rating)}
                             </div>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-xs text-gray-400">
                                 {new Date(review.createdAt).toLocaleString()}
                             </p>
-                            <span className="font-semibold">{review.title}</span>
-                            <p className="text-gray-700">{review.comment}</p>
+                            <span className="font-semibold text-gray-800 mb-1">{review.title}</span>
+                            <p className="font-semibold text-gray-800 mb-1">{review.comment}</p>
                         </div>
                     ))}
                 </div>

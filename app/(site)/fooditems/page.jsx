@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../../StoreContext/StoreContext"
 import ExploreMenu from "../Components/ExploreMenu";
 import Link from "next/link";
-import { FaStar } from "react-icons/fa";
+import { FaRegStar, FaStar } from "react-icons/fa";
 
 
 export default function FoodItem() {
@@ -36,8 +36,8 @@ export default function FoodItem() {
     return (
         <div className="p-6">
             <ExploreMenu onCategorySelect={setSelectedCategory} />
-            <h1 className="text-4xl">Menu</h1>
-            <div className="grid gap-3 grid-cols-3 ">
+            <h1 className="text-3xl font-bold mt-6 mb-4 text-center">Menu</h1>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
                 {filteredLists.map((l) => {
                     const count = cartItems[l._id] || 0;
 
@@ -47,61 +47,170 @@ export default function FoodItem() {
                     const reviewCount = ratingData ? ratingData.reviewCount : 0;
 
                     return (
-                        <div key={l._id}>
-                            <img
-                                src={`${url}/uploads/${l.imageUrl}`}
-                                alt={l.name}
-                                className="w-65 h-65 object-cover rounded"
-                            />
-                            {count === 0 ? (
+                        // <div
+                        //     key={l._id}
+                        //     className="bg-white rounded-2xl shadow-md hover:shadow-lg 
+                        //     transition-transform hover:-translate-y-1 overflow-hidden relative"
+                        //     >
+                        //     <div className="relative w-full h-48">
+
+                        //     </div>
+                        //     <img
+                        //         src={`${url}/uploads/${l.imageUrl}`}
+                        //         alt={l.name}
+                        //         className="w-full h-48 object-cove"
+                        //     />
+                        //     {count === 0 ? (
+                        //         <img
+                        //             className="add cursor-pointer"
+                        //             onClick={() => addToCart(l._id)}
+                        //             src={assets.add_icon_white}
+                        //         />
+
+                        //     ) : (
+                        //         <div className="food-item-counter">
+                        //             <img
+                        //                 onClick={() => removeFromCart(l._id)}
+                        //                 src={assets.remove_icon_red}
+                        //                 alt="remove"
+                        //             />
+                        //             <p>{count}</p>
+                        //             <img
+                        //                 onClick={() => addToCart(l._id)}
+                        //                 src={assets.add_icon_green}
+                        //                 alt="add" />
+                        //         </div>
+                        //     )}
+
+                        //     {/* รายละเอียด */}
+                        //     <div className="p-4">
+                        //         <div className="flex justify-between items-center mb-2">
+                        //             <p className="font-bold text-lg">{l.name}</p>
+                        //             <p className="text-blue-600 font-semibold">฿{l.price}</p>
+                        //         </div>
+                        //         <p className="text-gray-600 text-sm mt-3 line-clamp-2">รายละเอียด: {l.description}</p>
+                        //         <p>ประเภท: {l.category}</p>
+
+                        //         <div className="flex justify-between ">
+                        //             {reviewCount > 0 ? (
+                        //                 <div className="flex gap-2 text-sm items-center">
+                        //                     <spcontent-centeran>{avgRating.toFixed(1)} </spcontent-centeran>
+                        //                     {/* ⭐ แสดงดาวตาม avgRating */}
+                        //                     <div className="flex">
+                        //                         {Array.from({ length: 5 }).map((_, i) =>
+                        //                             i < Math.round(avgRating) ? (
+                        //                                 <FaStar key={i} className="text-yellow-500 " />
+                        //                             ) : (
+                        //                                 <FaRegStar key={i} className="text-gray-300 " />
+                        //                             )
+                        //                         )}</div>
+
+                        //                     <p className="text-gray-400 text-sm">
+                        //                         ({reviewCount})
+                        //                     </p>
+                        //                 </div>
+                        //             ) : (
+                        //                 <p className="text-gray-400 text-sm items-center">
+                        //                     ({reviewCount})
+                        //                 </p>
+                        //             )}
+                        //             <Link href={`/reviewPopup?itemId=${l._id}`}>
+                        //                 <button className="bg-gray-200 hover:bg-gray-300 
+                        //             text-gray-800 px-3 py-1 rounded-full text-sm">
+                        //                     Post review
+                        //                 </button>
+                        //             </Link>
+                        //         </div>
+                        //     </div>
+                        // </div>
+
+                        <div
+                            key={l._id}
+                            className="bg-white rounded-2xl shadow-md hover:shadow-lg 
+                            transition-transform hover:-translate-y-1 overflow-hidden relative"
+                        >
+                            {/* ส่วนของภาพ */}
+                            <div className="relative w-full aspect-square">
                                 <img
-                                    className="add cursor-pointer"
-                                    onClick={() => addToCart(l._id)}
-                                    src={assets.add_icon_white}
+                                    src={`${url}/uploads/${l.imageUrl}`}
+                                    alt={l.name}
+                                    className="w-full h-full object-cover"
                                 />
 
-                            ) : (
-                                <div className="food-item-counter">
-                                    <img
-                                        onClick={() => removeFromCart(l._id)}
-                                        src={assets.remove_icon_red}
-                                        alt="remove"
-                                    />
-                                    <p>{count}</p>
-                                    <img
+                                {/* ปุ่มเพิ่ม / ลบสินค้า */}
+                                {count === 0 ? (
+                                    <button
                                         onClick={() => addToCart(l._id)}
-                                        src={assets.add_icon_green}
-                                        alt="add" />
-                                </div>
-                            )}
-
-                            {/* รายละเอียด */}
-                            <div className="mt-3">
-                                <p className="font-bold">{l.name}</p>
-
-                                {reviewCount > 0 ? (
-                                    <>
-                                        <p><FaStar/> {avgRating.toFixed(1)} / 5</p>
-                                        <p className="text-gray-500 text-sm">
-                                            ({reviewCount} รีวิว)
-                                        </p>
-                                    </>
-                                ) : (
-                                    <p className="text-gray-500 text-sm">
-                                            ({reviewCount} รีวิว)
-                                        </p>
-                                )}
-
-                                <Link href={`/reviewPopup?itemId=${l._id}`}>
-                                    <button className="cursor-pointer bg-blue-500 text-white px-3 py-1 rounded mt-2">
-                                        Post review
+                                        className="absolute bottom-3 right-3 rounded-full cursor-pointer"
+                                    >
+                                        <img
+                                            src={assets.add_icon_white}
+                                            alt="add"
+                                            className="cursor-pointer"
+                                        />
                                     </button>
-                                </Link>
+                                ) : (
+                                    <div
+                                        className="absolute bottom-3 right-3 flex items-center 
+                                        gap-2 bg-white/80 backdrop-blur-md rounded-full 
+                                        px-3 py-1 shadow-lg"
+                                    >
+                                        <button onClick={() => removeFromCart(l._id)}>
+                                            <img
+                                                src={assets.remove_icon_red}
+                                                alt="remove"
+                                                className="cursor-pointer"
+                                            />
+                                        </button>
+                                        <p className="font-semibold text-gray-800">{count}</p>
+                                        <button onClick={() => addToCart(l._id)}>
+                                            <img
+                                                src={assets.add_icon_green}
+                                                alt="add"
+                                                className="cursor-pointer"
+                                            />
+                                        </button>
+                                    </div>
+                                )}
                             </div>
 
-                            <p>รายละเอียด: {l.description}</p>
-                            <p>ประเภท: {l.category}</p>
-                            <p>ราคา: ฿{l.price}</p>
+                            {/* ส่วนรายละเอียด */}
+                            <div className="p-4">
+                                <p className="font-bold text-lg">{l.name}</p>
+                                <p className="text-gray-600 text-sm line-clamp-2">{l.description}</p>
+                                <p className="text-blue-600 font-semibold mt-2">฿{l.price}</p>
+
+                                <div className="flex justify-between pt-3">
+                                    {reviewCount > 0 ? (
+                                        <div className="flex gap-2 text-sm items-center">
+                                            <spcontent-centeran>{avgRating.toFixed(1)} </spcontent-centeran>
+                                            {/* ⭐ แสดงดาวตาม avgRating */}
+                                            <div className="flex">
+                                                {Array.from({ length: 5 }).map((_, i) =>
+                                                    i < Math.round(avgRating) ? (
+                                                        <FaStar key={i} className="text-yellow-500 " />
+                                                    ) : (
+                                                        <FaRegStar key={i} className="text-gray-300 " />
+                                                    )
+                                                )}</div>
+
+                                            <p className="text-gray-400 text-sm">
+                                                ({reviewCount})
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <p className="text-gray-400 text-sm items-center">
+                                            ({reviewCount} ยังไม่มีรีวิว)
+                                        </p>
+                                    )}
+                                    <Link href={`/reviewPopup?itemId=${l._id}`}>
+                                        <button className="bg-gray-200 hover:bg-gray-300 
+                                    text-gray-800 px-3 py-1 rounded-full text-sm">
+                                            Post review
+                                        </button>
+                                    </Link>
+                                </div>
+                            </div>
                         </div>
                     )
                 })}

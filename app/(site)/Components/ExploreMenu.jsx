@@ -9,6 +9,14 @@ export default function ExploreMenu({ onCategorySelect }) {
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
+    // ลำดับและชื่อแสดงผลที่ต้องการ
+    const categoryOrder = ["ramen", "side menu", "drink"];
+    const categoryNames = {
+        "ramen": "เมนูหลัก",
+        "side menu": "เมนูเสริม",
+        "drink": "เครื่องดื่ม"
+    };
+
     useEffect(() => {
         async function fetchMenus() {
             try {
@@ -23,6 +31,13 @@ export default function ExploreMenu({ onCategorySelect }) {
                         const randomItem = items[Math.floor(Math.random() * items.length)];
                         return { category: cat, imageUrl: randomItem.imageUrl };
                     });
+                    //  เรียงตาม order
+                    categoriesWithImage.sort((a, b) => {
+                        const indexA = categoryOrder.indexOf(a.category);
+                        const indexB = categoryOrder.indexOf(b.category);
+                        return indexA - indexB;
+                    });
+
                     setCategories(categoriesWithImage);
                 }
             } catch (err) {
@@ -34,15 +49,20 @@ export default function ExploreMenu({ onCategorySelect }) {
     }, []);
 
     const handleSelect = (cat) => {
-        setSelectedCategory(cat);
-        if (onCategorySelect) {
-            onCategorySelect(cat); // ✅ ส่งค่ากลับไป
+        // ✅ ถ้าคลิกหมวดเดิมอีกครั้ง ให้กลับไปหน้า "รวมทั้งหมด"
+        if (selectedCategory === cat) {
+            setSelectedCategory(null);
+            if (onCategorySelect) onCategorySelect(null);
+        }
+        else {
+            setSelectedCategory(cat);
+            if (onCategorySelect) onCategorySelect(cat); // ✅ ส่งค่ากลับไป
         }
     };
 
     return (
         <div className="p-5">
-            <h2 className="text-2xl font-bold mb-4">🍜 Explore Menu</h2>
+            <h2 className="text-2xl font-bold mb-4">Explore Menu</h2>
 
             <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mb-8">
                 {categories.map(cat => (
@@ -57,7 +77,9 @@ export default function ExploreMenu({ onCategorySelect }) {
                             alt={cat.category}
                             className="h-32 w-full object-cover"
                         />
-                        <p className="text-center py-2 font-semibold capitalize">{cat.category}</p>
+                        <p className="text-center py-2 font-semibold capitalize">
+                            {categoryNames[cat.category] || cat.category}
+                        </p>
                     </div>
                 ))}
             </div>
