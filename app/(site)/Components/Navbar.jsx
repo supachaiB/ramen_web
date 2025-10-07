@@ -1,6 +1,6 @@
 'use client'
 import { assets } from "@/public/assets/assets";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { StoreContext } from "../../../StoreContext/StoreContext";
 import './Navbar.css'
 import Link from "next/link";
@@ -13,10 +13,27 @@ export default function Navbar({ setShowLogin }) {
     localStorage.removeItem("token");
     setToken("");
   }
+
+  useEffect(() => {
+    if (token) {
+      //ตรวจสอบ token หมด
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1])); // decode payload
+        const isExpired = payload.exp * 1000 < Date.now();
+        if (isExpired) {
+          logout();
+        }
+      } catch (error) {
+        // token ผิดรูปแบบ เช่น ถูกแก้ไข หรือไม่ใช่ JWT
+        logout();
+      }
+    }
+  }, [token])
+
   return (
     <div>
-      <div className="flex justify-between p-6">
-        Logo
+      <div className="flex justify-between p-6 bg-gray-900 text-white">
+        <h1 className="text-xl text-orange-500" >RAMEN.web</h1>
         <ul className="flex gap-10">
           <Link href="/" className="cursor-pointer">Home</Link>
           <Link href="/gallery" className="cursor-pointer">Gallery</Link>
@@ -24,9 +41,8 @@ export default function Navbar({ setShowLogin }) {
           <Link href="/contact" className="cursor-pointer">Contact</Link>
         </ul>
         <div className="flex gap-10">
-          <img src={assets.search_icon} alt="" />
           <Link href="/cart" className="relative cursor-pointer">
-            <img src={assets.basket_icon} alt="" />
+            <img src={assets.basket_icon} alt="" className="filter invert brightness-0"/>
             <div className={getTotalCartAmount() === 0
               ? ""
               : "dot absolute min-w-[10px] min-h-[10px] bg-red-500 rounded-md top-[-8px] right-[-8px]"}></div>

@@ -83,7 +83,7 @@ const StoreContextProvider = (props) => {
     // โหลดเมนูจาก API
     const fetchFood = async () => {
         try {
-            const response = await fetch(url +"/api/menuitems", {
+            const response = await fetch(url + "/api/menuitems", {
                 cache: "no-store", // กัน cache เวลาพัฒนา
             });
             if (!response.ok) {
@@ -96,7 +96,6 @@ const StoreContextProvider = (props) => {
             setLists([]); // fallback เป็น array ว่าง
         }
     }
-
 
     useEffect(() => {
         async function loadData() {
@@ -123,7 +122,7 @@ const StoreContextProvider = (props) => {
         addToCart,
         removeFromCart,
         loadCartData,
-        getTotalCartAmount
+        getTotalCartAmount    
     }
 
     return (
