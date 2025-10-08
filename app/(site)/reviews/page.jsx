@@ -51,7 +51,7 @@ export default function Reviews() {
                         <div key={review._id} 
                         className="bg-white border border-gray-200 
                         rounded-2xl shadow-sm 
-                        hover:shadow-md transition-all duration-200 p-5"
+                        duration-200 p-5 "
                         >
                             <div className="flex items-center justify-between mb-2">
                                 {renderStars(review.rating)}
@@ -60,7 +60,7 @@ export default function Reviews() {
                                 {new Date(review.createdAt).toLocaleString()}
                             </p>
                             <span className="font-semibold text-gray-800 mb-1">{review.title}</span>
-                            <p className="font-semibold text-gray-800 mb-1">{review.comment}</p>
+                            <p className="font-semibold text-gray-500 mb-1">{review.comment}</p>
                         </div>
                     ))}
                 </div>

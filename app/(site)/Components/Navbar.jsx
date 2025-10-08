@@ -33,7 +33,7 @@ export default function Navbar({ setShowLogin }) {
   return (
     <div>
       <div className="flex justify-between p-6 bg-gray-900 text-white">
-        <h1 className="text-xl text-orange-500" >RAMEN.web</h1>
+         <Link href="/" className="cursor-pointer text-xl text-orange-500">RAMEN delivery</Link>
         <ul className="flex gap-10">
           <Link href="/" className="cursor-pointer">Home</Link>
           <Link href="/gallery" className="cursor-pointer">Gallery</Link>
@@ -50,7 +50,7 @@ export default function Navbar({ setShowLogin }) {
           {
             !token ? <button className="cursor-pointer" onClick={() => setShowLogin(true)}>sign in</button>
               : <div className="navbar-profile">
-                <img src={assets.profile_icon} />
+                <img src={assets.profile_icon} className="filter invert brightness-0"/>
                 <div className="nav-profile-dropdown">
                   <Link href="/myorders" className="cursor-pointer"><img src={assets.bag_icon} alt="" /><p>Orders</p></Link>
                   <hr />

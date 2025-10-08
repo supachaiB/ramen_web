@@ -63,46 +63,52 @@ const PlaceOrder = () => {
 
     const router = useRouter();
 
-    useEffect(()=>{
+    useEffect(() => {
         if (!token || getTotalCartAmount() === 0) {
             router.push('/cart')
         }
     }, [token])
 
     return (
-        <>
-            <form onSubmit={placeOrder}>
-                <div>
-                    <p>Delivery Information</p>
-                    <div>
-                        <input required name='firstName' onChange={onChangeHandler} value={data.firstName} type="text" placeholder="First name" />
-                        <input required name='lastName' onChange={onChangeHandler} value={data.lastName} type="text" placeholder="Last name" />
+        <div className="p-4 sm:p-6 max-w-4xl mx-auto">
+            <h1 className="text-2xl font-bold mb-6">Place Order</h1>
+            <form onSubmit={placeOrder} className="flex flex-col md:flex-row gap-6">
+
+                <div className="flex-1 space-y-4">
+                    <h2 className="text-xl font-semibold mb-2">Delivery Information</h2>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                        <input required name='firstName' onChange={onChangeHandler} value={data.firstName} type="text" placeholder="First name" className="flex-1 border rounded px-3 py-2" />
+                        <input required name='lastName' onChange={onChangeHandler} value={data.lastName} type="text" placeholder="Last name" className="flex-1 border rounded px-3 py-2" />
                     </div>
-                    <input required name='email' onChange={onChangeHandler} value={data.email} type="Email" placeholder="Email address" />
-                    <input required name='street' onChange={onChangeHandler} value={data.street} type="text" placeholder="Street" />
-                    <div>
-                        <input required name='city' onChange={onChangeHandler} value={data.city} type="text" placeholder="City" />
-                        <input required name='state' onChange={onChangeHandler} value={data.state} type="text" placeholder="State" />
+                    <div className="flex flex-col sm:flex-row gap-2">
+                        <input required name='email' onChange={onChangeHandler} value={data.email} type="Email" placeholder="Email address" className="flex-1 border rounded px-3 py-2" />
+                        <input required name='street' onChange={onChangeHandler} value={data.street} type="text" placeholder="Street" className="flex-1 border rounded px-3 py-2" />
                     </div>
-                    <div>
-                        <input required name='zipcode' onChange={onChangeHandler} value={data.zipcode} type="text" placeholder="Zip code" />
-                        <input required name='country' onChange={onChangeHandler} value={data.country} type="text" placeholder="Country" />
+                    <div className="flex flex-col sm:flex-row gap-2">
+                        <input required name='city' onChange={onChangeHandler} value={data.city} type="text" placeholder="City" className="flex-1 border rounded px-3 py-2" />
+                        <input required name='state' onChange={onChangeHandler} value={data.state} type="text" placeholder="State" className="flex-1 border rounded px-3 py-2" />
                     </div>
-                    <input required name='phone' onChange={onChangeHandler} value={data.phone} type="text" placeholder="Phone" />
+                    <div className="flex flex-col sm:flex-row gap-2">
+                        <input required name='zipcode' onChange={onChangeHandler} value={data.zipcode} type="text" placeholder="Zip code" className="flex-1 border rounded px-3 py-2" />
+                        <input required name='country' onChange={onChangeHandler} value={data.country} type="text" placeholder="Country" className="flex-1 border rounded px-3 py-2" />
+                    </div>
+                    <input required name='phone' onChange={onChangeHandler} value={data.phone} type="text" placeholder="Phone" className="flex-1 border rounded px-3 py-2"/>
                 </div>
-                <div>
-                    <div>
-                        <h2>Cart Totals</h2>
+
+                <div className="w-full md:w-1/3 flex-shrink-0 space-y-4">
+                    <div className="p-4 border rounded bg-gray-50">
+                        <h2 className="text-xl font-semibold mb-2">Cart Totals</h2>
                         <hr />
-                        <div>
+
+                        <div className="flex justify-between mb-2">
                             <p>Total</p>
                             <b>${getTotalCartAmount()}</b>
                         </div>
+                        <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-2">PROCEED TO CHECKOUT</button>
                     </div>
-                    <button type="submit" className="cursor-pointer">PROCEED TO CHECKOUT</button>
                 </div>
             </form>
-        </>
+        </div>
     )
 }
 
