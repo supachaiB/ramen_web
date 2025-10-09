@@ -48,7 +48,7 @@ export default function LoginPopup ({ setShowLogin })  {
     }
 
     return (
-        <div className="absolute z-10 w-[100%] h-[100%] bg-gray-400 grid">
+        <div className="absolute z-100 w-[100%] h-[100%] bg-gray-400 grid">
             <form onSubmit={onLogin} >
                 <div>
                     <h2>{currState}</h2>
