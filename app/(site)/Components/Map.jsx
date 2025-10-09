@@ -11,7 +11,7 @@ const position = [13.778922, 100.4754889]
 
 export default function Map() {
     return (
-        <div className="w-full h-full mt-8" >
+        <div className="w-full h-full mt-8 relative z-0" >
             <MapContainer
                 className="w-full h-full "
                 center={position} zoom={15} scrollWheelZoom={false}>
