@@ -10,5 +10,8 @@ export const assets = {
     bag_icon: "/assets/bag_icon.png",
     profile_icon: "/assets/profile_icon.png",
     logout_icon: "/assets/logout_icon.png",
-    parcel_icon: "/assets/parcel_icon.png"
+    parcel_icon: "/assets/parcel_icon.png",
+    linkedin_icon: "/assets/linkedin_icon.png",
+    facebook_icon: "/assets/facebook_icon.png",
+    twitter_icon: "/assets/twitter_icon.png"
 }
