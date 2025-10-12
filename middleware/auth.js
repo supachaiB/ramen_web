@@ -1,3 +1,4 @@
+//ตรวจสอบความถูกต้องของ JWT Token
 import jwt from "jsonwebtoken";
 
 export const verifyToken = (req) => {

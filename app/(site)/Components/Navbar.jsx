@@ -25,13 +25,12 @@ export default function Navbar({ setShowLogin }) {
         if (isExpired) {
           alert("กรุณาเข้าสู่ระบบใหม่");
           logout();
-          //  redirect ไป login ด้วย:
-          router.push("/LoginPopup");
 
         }
       } catch (error) {
         // token ผิดรูปแบบ เช่น ถูกแก้ไข หรือไม่ใช่ JWT
         logout();
+        router.push("/LoginPopup");
       }
     }
   }, [token])

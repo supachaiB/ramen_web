@@ -18,6 +18,13 @@ export default function FoodItem() {
         ? lists.filter(l => l.category === selectedCategory)
         : lists;
 
+
+    const sortedLists = [...filteredLists].sort((a, b) => {
+    if (a.category === "ramen" && b.category !== "ramen") return -1; // a ขึ้นก่อน
+    if (a.category !== "ramen" && b.category === "ramen") return 1;  // b ขึ้นก่อน
+    return 0; // อื่น ๆ ตามเดิม
+});
+
     useEffect(() => {
         async function fetchRatings() {
             const res = await fetch("/api/ratings");
@@ -32,13 +39,20 @@ export default function FoodItem() {
         fetchRatings();
     }, []);
 
+{sortedLists.map((l) => {
+    const count = cartItems[l._id] || 0;
+    const ratingData = items.find((r) => r._id === l._id);
+    const avgRating = ratingData ? ratingData.avgRating : 0;
+    const reviewCount = ratingData ? ratingData.reviewCount : 0;
 
+    
+})}
     return (
         <div className="p-6">
             <ExploreMenu onCategorySelect={setSelectedCategory} />
             <h1 className="text-3xl font-bold mt-6 mb-4 text-center">Menu</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
-                {filteredLists.map((l) => {
+                {sortedLists.map((l) => {
                     const count = cartItems[l._id] || 0;
 
                     // ✅ หาค่า avgRating และ reviewCount ของ item นั้นจาก items
