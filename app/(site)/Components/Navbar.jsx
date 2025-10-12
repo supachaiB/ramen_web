@@ -26,7 +26,7 @@ export default function Navbar({ setShowLogin }) {
           alert("กรุณาเข้าสู่ระบบใหม่");
           logout();
           //  redirect ไป login ด้วย:
-          // router.push("/LoginPopup");
+          router.push("/LoginPopup");
 
         }
       } catch (error) {

@@ -1,17 +1,18 @@
 'use client'
 import { assets } from "@/public/assets/assets";
+import { StoreContext } from "@/StoreContext/StoreContext";
 import axios from "axios"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 
 
 export default function Orders() {
     const [orders, setOrders] = useState([]);
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URI
+    const { url } = useContext( StoreContext )
 
     const fetchAllOrders = async () => {
         try {
-            const response = await axios.get(baseUrl + "/api/order/list");
+            const response = await axios.get(url + "/api/order/list");
             if (response.data.success) {
                 setOrders(response.data.data);
             }
@@ -25,7 +26,7 @@ export default function Orders() {
     }
 
     const statusHandler = async (event, orderId) => {
-        const response = await axios.post(baseUrl + "/api/order/status",{
+        const response = await axios.post(url + "/api/order/status",{
             orderId,
             status:event.target.value
         })

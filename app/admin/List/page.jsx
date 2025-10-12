@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { StoreContext } from "@/StoreContext/StoreContext";
+import { useContext, useEffect, useState } from "react";
 
-const url = "http://localhost:3000";
 
 export default function List() {
-    const [lists, setLists] = useState([])
+    const { url } = useContext( StoreContext );
+    const [lists, setLists] = useState([]);
 
     // ดึงข้อมูล API
     useEffect(() => {

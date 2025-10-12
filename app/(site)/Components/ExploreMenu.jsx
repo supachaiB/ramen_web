@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from "react";
-
-const url = "http://localhost:3000";
+import { StoreContext } from "@/StoreContext/StoreContext";
+import { useContext, useEffect, useState } from "react";
 
 export default function ExploreMenu({ onCategorySelect }) {
+    const { url } = useContext( StoreContext );
     const [menus, setMenus] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);

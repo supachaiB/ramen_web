@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect } from "react";
+import { StoreContext } from "@/StoreContext/StoreContext";
+import { useState, useEffect, useContext } from "react";
 
-const url = "http://localhost:3000";
 
 export default function Gallery() {
+    const { url } = useContext(StoreContext);
     const [galleries, setGallery] = useState([])
     const [currentIndex, setCurrentIndex] = useState(null) // index ของรูปที่เลือก
 

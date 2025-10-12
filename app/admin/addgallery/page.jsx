@@ -1,10 +1,11 @@
 'use client'
 import { assets } from "@/public/assets/assets"
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { StoreContext } from "@/StoreContext/StoreContext";
 
 export default function Add() {
-    const url = "http://localhost:3000";
+    const { url } = useContext( StoreContext)
     const [image, setImage] = useState(false);
     const [data, setData] = useState({
         name: "",

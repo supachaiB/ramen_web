@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useState } from "react";
-
-const url = "http://localhost:3000";
+import { StoreContext } from "@/StoreContext/StoreContext";
+import { useContext, useEffect, useState } from "react";
 
 export default function ListGallery() {
+    const { url } = useContext( StoreContext )
     const [galleries, setGallery] = useState([])
 
     // ดึงข้อมูล API

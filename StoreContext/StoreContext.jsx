@@ -7,8 +7,10 @@ import { createContext, useEffect, useState } from "react";
 export const StoreContext = createContext(null)
 
 const StoreContextProvider = (props) => {
-    const url = "http://localhost:3000"
-
+    // dev
+    const url = process.env.NEXT_PUBLIC_BASE_URI
+    // production
+    // const url = process.env.API_URI
     const [lists, setLists] = useState([])
 
     const [token, setToken] = useState("")

@@ -4,9 +4,9 @@ import userModel from "@/models/userModel";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-const backendUrl = process.env.BASE_URL;
-const frontendUrl = process.env.NEXT_PUBLIC_BASE_URI
+const url = process.env.NEXT_PUBLIC_BASE_URI
 export const placeOrder = async ({ userId, items, amount, address }) => {
+  
   //  สร้าง order
   const newOrder = new orderModel({
     userId,
@@ -39,8 +39,8 @@ export const placeOrder = async ({ userId, items, amount, address }) => {
   const session = await stripe.checkout.sessions.create({
     line_items,
     mode: "payment",
-    success_url: `${frontendUrl}/verify?success=true&orderId=${newOrder._id}`,
-    cancel_url: `${frontendUrl}/verify?success=false&orderId=${newOrder._id}`,
+    success_url: `${url}/verify?success=true&orderId=${newOrder._id}`,
+    cancel_url: `${url}/verify?success=false&orderId=${newOrder._id}`,
   });
 
   return { success: true, session_url: session.url };
