@@ -2,6 +2,9 @@ import "../globals.css";
 import StoreContextProvider from "@/StoreContext/StoreContext";
 import NavbarWrapper from "./Components/NavbarWrapper";
 import Footer from "./Components/Footer";
+import { Suspense } from "react";
+import Loading from "./loading";
+
 
 export const metadata = {
   title: "My App",
@@ -10,14 +13,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html 
+    <html
       lang="en th"
     >
       <body>
         <StoreContextProvider>
           <NavbarWrapper />
-          {children}
-          <Footer/>
+           {/* Suspense fallback เป็นหน้า Loading */}
+          <Suspense fallback={<Loading />}>
+            {children}
+          </Suspense>
+          <Footer />
         </StoreContextProvider>
       </body>
     </html>

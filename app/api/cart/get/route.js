@@ -8,7 +8,7 @@ export async function GET(req) {
   try {
     await connectMongoDB(); // connect DB ก่อน
 
-    const userId = verifyToken(req);
+    const { id: userId, role } = verifyToken(req);
     if (!userId) {
       return NextResponse.json(
         { success: false, message: "Missing userId or itemId" },
@@ -16,7 +16,7 @@ export async function GET(req) {
       );
     }
 
-    const result = await getCart({ userId });
+    const result = await getCart({ userId, role });
     return NextResponse.json(result);
   } catch (err) {
     console.log(err);

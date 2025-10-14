@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../../StoreContext/StoreContext";
 import Link from "next/link";
 
+
 export default function Navbar({ setShowLogin }) {
 
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext)
@@ -30,7 +31,7 @@ export default function Navbar({ setShowLogin }) {
       } catch (error) {
         // token ผิดรูปแบบ เช่น ถูกแก้ไข หรือไม่ใช่ JWT
         logout();
-        router.push("/LoginPopup");
+        // router.push("/LoginPopup");
       }
     }
   }, [token])

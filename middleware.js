@@ -1,11 +1,30 @@
-// /middleware.js (วางที่ project-root/middleware.js)
+export const runtime = "nodejs"; // บังคับให้ใช้ Node.js runtime
+
 import { NextResponse } from "next/server";
 
+import jwt from "jsonwebtoken";
+
 export function middleware(req) {
-  // Redirect ทุกคำขอที่เข้ามาที่ /admin หรือ /admin/anything -> ไปหน้า '/'
-  // return NextResponse.redirect(new URL("/LoginPopup", req.url));
+  const token = req.cookies.get("token")?.value;
+  console.log("Token in middleware:", token); // log ดู
+
+  if (!token) return NextResponse.redirect(new URL("/LoginPopup", req.url));
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Decoded:", decoded);
+
+    if (decoded.role !== "admin") {
+      return NextResponse.redirect(new URL("/", req.url));
+    }
+
+    return NextResponse.next();
+  } catch (err) {
+    console.log("JWT error:", err.message);
+    return NextResponse.redirect(new URL("/LoginPopup", req.url));
+  }
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/:path*"], // ตรวจทั้ง /admin และ /admin/...
+  matcher: ["/admin/:path*"], // ใช้ middleware กับหน้า admin ทั้งหมด
 };

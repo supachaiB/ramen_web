@@ -50,7 +50,7 @@ const PlaceOrder = () => {
         let response = await axios.post(
             url + "/api/order/place",
             orderData,
-            { headers: { Authorization: `Bearer ${token}` } }   // ✅
+            { headers: { Authorization: `Bearer ${token}` } }   
         );
         if (response.data.success) {
             const { session_url } = response.data;

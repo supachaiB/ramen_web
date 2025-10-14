@@ -5,7 +5,6 @@ import { FaStar } from "react-icons/fa";
 
 export default function Reviews() {
     const [reviews, setReviews] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchReviews() {
@@ -17,14 +16,10 @@ export default function Reviews() {
                 }
             } catch (err) {
                 console.error("Error fetching reviews:", err);
-            } finally {
-                setLoading(false);
-            }
+            } 
         }
         fetchReviews();
     }, []);
-
-    if (loading) return <p>Loading reviews...</p>;
 
     // ฟังก์ชัน render ดาว
     const renderStars = (rating) => {

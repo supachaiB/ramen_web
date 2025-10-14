@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from "react";
+import { useContext } from "react";
 import Navbar from "./Navbar";
 import LoginPopup from "../LoginPopup/page";
+import { StoreContext } from "@/StoreContext/StoreContext";
 
 export default function NavbarWrapper() {
-  const [showLogin, setShowLogin] = useState(false);
+  const { showLogin, setShowLogin } = useContext(StoreContext);
 
   return (
     <>

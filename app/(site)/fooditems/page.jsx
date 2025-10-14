@@ -20,10 +20,10 @@ export default function FoodItem() {
 
 
     const sortedLists = [...filteredLists].sort((a, b) => {
-    if (a.category === "ramen" && b.category !== "ramen") return -1; // a ขึ้นก่อน
-    if (a.category !== "ramen" && b.category === "ramen") return 1;  // b ขึ้นก่อน
-    return 0; // อื่น ๆ ตามเดิม
-});
+        if (a.category === "ramen" && b.category !== "ramen") return -1; // a ขึ้นก่อน
+        if (a.category !== "ramen" && b.category === "ramen") return 1;  // b ขึ้นก่อน
+        return 0; // อื่น ๆ ตามเดิม
+    });
 
     useEffect(() => {
         async function fetchRatings() {
@@ -39,14 +39,6 @@ export default function FoodItem() {
         fetchRatings();
     }, []);
 
-{sortedLists.map((l) => {
-    const count = cartItems[l._id] || 0;
-    const ratingData = items.find((r) => r._id === l._id);
-    const avgRating = ratingData ? ratingData.avgRating : 0;
-    const reviewCount = ratingData ? ratingData.reviewCount : 0;
-
-    
-})}
     return (
         <div className="p-6">
             <ExploreMenu onCategorySelect={setSelectedCategory} />
@@ -60,7 +52,7 @@ export default function FoodItem() {
                     const avgRating = ratingData ? ratingData.avgRating : 0;
                     const reviewCount = ratingData ? ratingData.reviewCount : 0;
 
-                    return (  
+                    return (
 
                         <div
                             key={l._id}

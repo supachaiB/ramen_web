@@ -10,7 +10,8 @@ export async function POST(req) {
 
     const userId = verifyToken(req); // ✅ ได้ userId
     const body = await req.json();
-
+    // console.log("UserId:", userId);
+    // console.log("Body:", body);
     if (!userId) {
       return NextResponse.json(
         { success: false, message: "Missing userId" },
@@ -26,6 +27,7 @@ export async function POST(req) {
     });
 
     return NextResponse.json(result);
+
   } catch (error) {
     console.error(error);
     return NextResponse.json(

@@ -2,19 +2,19 @@ import userModel from "@/models/userModel";
 
 // Add item to cart
 export const addToCart = async ({ userId, itemId }) => {
-  const user = await userModel.findById(userId);
-  if (!user) throw new Error("User not found");
+    const user = await userModel.findById(userId);
+    if (!user) throw new Error("User not found");
 
-  const cartData = user.cartData || {};
-  cartData[itemId] = (cartData[itemId] || 0) + 1;
+    const cartData = user.cartData || {};
+    cartData[itemId] = (cartData[itemId] || 0) + 1;
 
-  await userModel.findByIdAndUpdate(userId, { cartData });
-  return { success: true, message: "Added To Cart" };
+    await userModel.findByIdAndUpdate(userId, { cartData });
+    return { success: true, message: "Added To Cart" };
 };
 
 
 // remove items to user cart
-export const removeFromCart = async ({ userId, itemId}) => {
+export const removeFromCart = async ({ userId, itemId }) => {
     const user = await userModel.findById(userId);
     if (!user) throw new Error("User not found");
 
@@ -34,7 +34,12 @@ export const removeFromCart = async ({ userId, itemId}) => {
 }
 
 //fetch user cart data
-export const getCart = async ({ userId }) => {
+export const getCart = async ({ userId, role }) => {
+    if (role === "admin") {
+        // admin ไม่มี cart → return empty
+        return { success: true, cartData: {} };
+    }
+
     const user = await userModel.findById(userId);
     if (!user) throw new Error("User not found");
 

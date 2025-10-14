@@ -9,6 +9,8 @@ export const StoreContext = createContext(null)
 const StoreContextProvider = (props) => {
     // dev
     const url = process.env.NEXT_PUBLIC_BASE_URI
+    const baseUrl = process.env.BASE_URI
+
     // production
     // const url = process.env.API_URI
     const [lists, setLists] = useState([])
@@ -17,6 +19,7 @@ const StoreContextProvider = (props) => {
 
     //cartItems เป็นตัวแปรที่เริ่มว่าง {} แต่ ต้องเอาเข้าจาก context เพื่อให้ ทุกหน้าใช้ state ตัวเดียวกัน ถ้าสร้างใหม่เฉย ๆ → ข้อมูล cart จะไม่ sync ระหว่างหน้า
     const [cartItems, setCartItems] = useState({})
+    const [showLogin, setShowLogin] = useState(false);
 
     // add to cart
     const addToCart = async (itemId) => {
@@ -27,7 +30,11 @@ const StoreContextProvider = (props) => {
             setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }))
         }
         if (token) {
-            await axios.post(url + "/api/cart/add", { itemId }, { headers: { token } })
+            await axios.post(url + "/api/cart/add", { itemId }, {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                },
+            })
         }
     }
 
@@ -116,6 +123,7 @@ const StoreContextProvider = (props) => {
 
     const contextValue = {
         url,
+        baseUrl,
         token,
         setToken,
         lists, // sky -> value
@@ -124,7 +132,9 @@ const StoreContextProvider = (props) => {
         addToCart,
         removeFromCart,
         loadCartData,
-        getTotalCartAmount    
+        getTotalCartAmount,
+        showLogin,
+        setShowLogin
     }
 
     return (
