@@ -1,11 +1,10 @@
 'use client'
-
-import { useEffect, useState } from "react";
+import { StoreContext } from "@/StoreContext/StoreContext";
+import { useContext, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 
 export default function Reviews() {
-    const [reviews, setReviews] = useState([]);
-
+    const { reviews, setReviews } = useContext( StoreContext );
     useEffect(() => {
         async function fetchReviews() {
             try {

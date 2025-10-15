@@ -12,7 +12,7 @@ export function middleware(req) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded:", decoded);
+    // console.log("Decoded:", decoded);
 
     if (decoded.role !== "admin") {
       return NextResponse.redirect(new URL("/", req.url));
@@ -20,7 +20,7 @@ export function middleware(req) {
 
     return NextResponse.next();
   } catch (err) {
-    console.log("JWT error:", err.message);
+    // console.log("JWT error:", err.message);
     return NextResponse.redirect(new URL("/LoginPopup", req.url));
   }
 }

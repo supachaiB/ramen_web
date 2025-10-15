@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
 export default function Navbar() {
-    const { token, setToken, setShowLogin, setCartItems } = useContext(StoreContext)
+    const { token, setToken, setShowLogin  } = useContext(StoreContext)
     const router = useRouter();
 
     // when you click to logout
@@ -14,7 +14,6 @@ export default function Navbar() {
         localStorage.removeItem("token");
 
         // clear cart state frontend side
-        setCartItems([]);
 
         // clear user data
 
