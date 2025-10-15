@@ -24,6 +24,7 @@ export async function POST(req) {
       items: body.items,
       amount: body.amount,
       address: body.address,
+      createdAt: new Date() // เวลานี้จะถูกเก็บเป็นเวลาเกิดคำสั่งซื้อ
     });
 
     return NextResponse.json(result);

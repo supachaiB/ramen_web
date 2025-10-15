@@ -27,14 +27,20 @@ export default function FoodItem() {
 
     useEffect(() => {
         async function fetchRatings() {
-            const res = await fetch("/api/ratings");
-            const data = await res.json();
-            console.log("⭐ Ratings data:", data);
+            try {
+                const res = await fetch("/api/ratings");
+                const data = await res.json();
+                console.log("⭐ Ratings data:", data);
 
-            setItems(data.map(d => ({
-                ...d,
-                _id: d._id || d.id,  // ✅ รองรับทั้ง id และ _id
-            })));
+                setItems(data.map(d => ({
+                    ...d,
+                    _id: d._id || d.id,  // ✅ รองรับทั้ง id และ _id
+                })));
+
+            } catch (error) {
+                console.log("fechRatings error", error)
+            }
+
         }
         fetchRatings();
     }, []);

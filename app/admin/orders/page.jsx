@@ -4,11 +4,9 @@ import { StoreContext } from "@/StoreContext/StoreContext";
 import axios from "axios"
 import { useContext, useEffect, useState } from "react";
 
-
-
 export default function Orders() {
     const [orders, setOrders] = useState([]);
-    const { url } = useContext( StoreContext )
+    const { url } = useContext(StoreContext);
 
     const fetchAllOrders = async () => {
         try {
@@ -16,22 +14,33 @@ export default function Orders() {
             if (response.data.success) {
                 setOrders(response.data.data);
             }
-            else (error) => {
-                console.log(error)
-            }
         } catch (error) {
-            console.log("fetchAllOrders Error", error)
+            console.log("fetchAllOrders Error", error);
         }
-
     }
 
     const statusHandler = async (event, orderId) => {
-        const response = await axios.post(url + "/api/order/status",{
-            orderId,
-            status:event.target.value
-        })
-        if (response.data.success) {
-            await fetchAllOrders();
+        try {
+            const response = await axios.post(url + "/api/order/status", {
+                orderId,
+                status: event.target.value
+            });
+            if (response.data.success) {
+                await fetchAllOrders();
+            }
+        } catch (error) {
+            console.log("Status update error", error);
+        }
+    }
+
+    const deleteOrder = async (orderId) => {
+        try {
+            const response = await axios.delete(url + "/api/order/delete", { data: { orderId } });
+            if (response.data.success) {
+                await fetchAllOrders();
+            }
+        } catch (error) {
+            console.log("Delete order error", error);
         }
     }
 
@@ -40,37 +49,46 @@ export default function Orders() {
     }, [])
 
     return (
-        <div className="">
-            <h3>Order Page</h3>
-            <div className="order-list">
-                {orders.map((order, index) => (
-                    <div key={index} className="order-item">
-                        <img src={assets.parcel_icon} alt="" />
-                        <div>
-                            <p className="order-item-food">
-                                {order.items.map((item, index) => {
-                                    if (index === order.items.length - 1) {
-                                        return item.name + " x " + item.quantity
-                                    }
-                                    else {
-                                        return item.name + " x " + item.quantity + " , "
-                                    }
-                                })}
-                            </p>
-                            <p className="order-item-name">{order.address.firstName + " " + order.address.lastName}</p>
-                            <div className="order-item-address">
-                                <p>{order.address.street + ","}</p>
-                                <p>{order.address.city + ", " + order.address.state + ", " + order.address.country + ", " + order.address.zipcode}</p>
+        <div className="p-6 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold mb-6 text-center">Order Page</h3>
+            <div className="flex flex-col gap-4">
+                {orders.map((order) => (
+                    <div key={order._id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border rounded-lg shadow-sm hover:shadow-md transition">
+                        {/* Left: Info */}
+                        <div className="flex items-start sm:items-center gap-4 flex-1">
+                            <img src={assets.parcel_icon} alt="Parcel" className="w-12 h-12" />
+                            <div className="flex flex-col gap-1 text-sm">
+                                <p>{order.items.map((item, idx) => 
+                                    idx === order.items.length - 1 
+                                    ? `${item.name} x ${item.quantity}` 
+                                    : `${item.name} x ${item.quantity}, `
+                                )}</p>
+                                <p>{order.address.firstName} {order.address.lastName}</p>
+                                <p className="text-gray-500 text-sm">{order.address.street}, {order.address.city}, {order.address.state}, {order.address.country}, {order.address.zipcode}</p>
+                                <p className="text-gray-500 text-sm">{order.address.phone}</p>
+                                <p className="text-gray-600 text-sm">Items: {order.items.length} | Total: ${order.amount}</p>
                             </div>
-                            <p className="order-item-phone">{order.address.phone}</p>
                         </div>
-                        <p>Items : {order.items.length}</p>
-                        <p>${order.amount}</p>
-                        <select onChange={(event) => statusHandler(event, order._id)} value={order.status}>
-                            <option value="Food Processing">Food Processing</option>
-                            <option value="Out for delivery">Out for delivery</option>
-                            <option value="Delivered">Delivered</option>
-                        </select>
+
+                        {/* Right: Status + Buttons */}
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 gap-2 mt-2 sm:mt-0">
+                            <select 
+                                onChange={(e) => statusHandler(e, order._id)} 
+                                value={order.status}
+                                className="border border-gray-300 rounded px-2 py-1 text-sm"
+                            >
+                                <option value="Food Processing">Food Processing</option>
+                                <option value="Out for delivery">Out for delivery</option>
+                                <option value="Delivered">Delivered</option>
+                            </select>
+
+                            <button 
+                                onClick={() => deleteOrder(order._id)}
+                                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition text-sm"
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>

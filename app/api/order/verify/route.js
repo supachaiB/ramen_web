@@ -16,10 +16,10 @@ export async function POST(req) {
     }
 
     if (success === "true") {
-      await orderModel.findByIdAndUpdate(orderId, { payment: true });
+      await orderModel.findByIdAndUpdate(orderId, { payment: true, paidAt: new Date()});
       return NextResponse.json({ success: true, message: "Paid" });
     } else {
-      await orderModel.findByIdAndUpdate(orderId, { payment: false });
+      await orderModel.findByIdAndUpdate(orderId, { payment: false, paidAt: null });
       return NextResponse.json({ success: false, message: "Not Paid" });
     }
   } catch (error) {
