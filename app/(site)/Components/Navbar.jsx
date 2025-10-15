@@ -29,9 +29,7 @@ export default function Navbar({ setShowLogin }) {
 
         }
       } catch (error) {
-        // token ผิดรูปแบบ เช่น ถูกแก้ไข หรือไม่ใช่ JWT
         logout();
-        // router.push("/LoginPopup");
       }
     }
   }, [token])

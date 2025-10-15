@@ -19,7 +19,7 @@ export async function POST(req) {
   try {
     await connectMongoDB();
 
-    const userId = verifyToken(req); 
+    const { id: userId } = verifyToken(req); 
     const body = await req.json();
     const { foodId, rating, title, comment } = body;
 

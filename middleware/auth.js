@@ -4,15 +4,15 @@ export const runtime = "nodejs"; // บังคับให้ใช้ Node.js
 import jwt from "jsonwebtoken";
 
 export const verifyToken = (req) => {
-   if (!req.headers) throw new Error("Request headers not found")
-  // authorization - frontend or browser , token - backend or test postman
   const authHeader = req.headers.get("authorization") || req.headers.get("token");
+  console.log(authHeader)
   if (!authHeader) throw new Error("Not Authorized. Login Again");
 
   // includes - frontend or browser , split - backend or test postman
   const token = authHeader.includes("Bearer ") ? authHeader.split(" ")[1] : authHeader;
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // ส่งสองตัว
     return {
       id: decoded.id,
       role: decoded.role // เพิ่ม role

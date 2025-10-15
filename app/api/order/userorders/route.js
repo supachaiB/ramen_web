@@ -10,7 +10,8 @@ export async function POST(req) {
     // ตรวจ token ผ่านฟังก์ชันที่มีอยู่แล้ว
     let userId;
     try {
-      userId = verifyToken(req); // จะดึงจาก req.headers.authorization
+      const decoded = verifyToken(req); // จะดึงจาก req.headers.authorization
+      userId = decoded.id; // ✅ แยก id
     } catch (err) {
       return NextResponse.json(
         { success: false, message: err.message },
@@ -19,7 +20,7 @@ export async function POST(req) {
     }
 
     // query order ของ user
-    const orders = await orderModel.find({ userId });
+    const orders = await orderModel.find({ user: userId }); // ✅ field ที่เชื่อมกับ user
 
     return NextResponse.json({ success: true, data: orders });
   } catch (error) {

@@ -22,7 +22,7 @@ export default function Sidebar() {
                         <Link href="/admin/listgallery">List gallerys</Link>
                     </div>
                     <div className="sidebar-option border-1 border-gray-100">
-                        <Link href="/admin/review">reviews</Link>
+                        <Link href="/admin/reviews">reviews</Link>
                     </div>
                 </div>
             </div>

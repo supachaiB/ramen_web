@@ -1,14 +1,30 @@
+import { verifyToken } from "@/middleware/auth";
 import userModel from "@/models/userModel";
+import mongoose from "mongoose";
 
 // Add item to cart
-export const addToCart = async ({ userId, itemId }) => {
+export const addToCart = async (req) => {
+ // ตรวจสอบ JWT และดึง user info
+    const { id: userId } = verifyToken(req); // แยก id ออกมาใช้
+
+    const { itemId } = await req.json();
+    console.log(userId)
+
+    // ตรวจสอบ userId ว่าถูกต้องไหม
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new Error("Invalid userId");
+    }
+
     const user = await userModel.findById(userId);
     if (!user) throw new Error("User not found");
 
     const cartData = user.cartData || {};
     cartData[itemId] = (cartData[itemId] || 0) + 1;
 
-    await userModel.findByIdAndUpdate(userId, { cartData });
+    user.cartData = cartData;
+    await user.save();
+
+    // await userModel.findByIdAndUpdate(userId, { cartData });
     return { success: true, message: "Added To Cart" };
 };
 

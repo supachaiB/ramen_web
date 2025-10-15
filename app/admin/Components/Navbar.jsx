@@ -1,15 +1,28 @@
 'use client'
 import { assets } from "@/public/assets/assets";
 import { StoreContext } from "@/StoreContext/StoreContext";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect } from "react";
 
-export default function Navbar({ setShowLogin }) {
-    const { getTotalCartAmount, token, setToken } = useContext(StoreContext)
+export default function Navbar() {
+    const { token, setToken, setShowLogin, setCartItems } = useContext(StoreContext)
+    const router = useRouter();
 
-    // removeItem
+    // when you click to logout
     const logout = () => {
+        // clear token or cookie
         localStorage.removeItem("token");
+
+        // clear cart state frontend side
+        setCartItems([]);
+
+        // clear user data
+
+        // clear token
         setToken("");
+
+        // redirect ไปหน้า login
+        router.push("/LoginPopup");
     }
 
     useEffect(() => {
@@ -57,9 +70,7 @@ export default function Navbar({ setShowLogin }) {
                             ) : (
                                 <>
                                     <button
-                                        onClick={() => {
-                                            logout();
-                                        }}
+                                        onClick={logout}
                                         className="hover:text-orange-400 text-left"
                                     >
                                         Logout

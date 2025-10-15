@@ -55,7 +55,6 @@ export default function LoginPopup() {
                     window.location.href = "/admin";
                 } else {
                     window.location.href = "/";
-                    console.log("555555555555555")
                 }
 
             } else alert(response.data.message || "Login failed");

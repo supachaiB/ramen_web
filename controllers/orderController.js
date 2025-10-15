@@ -10,17 +10,19 @@ const url = process.env.NEXT_PUBLIC_BASE_URI  //  url - use server
 
 export const placeOrder = async ({ userId, items, amount, address }) => {
 
-  //main is newOrder 
+  //main is newOrder  
   try {
+    // แยก id จาก userId ที่เป็น object
+    const actualUserId = typeof userId === "string" ? userId : userId.id;
+
     const newOrder = new orderModel({
-      user: new mongoose.Types.ObjectId(userId),
-      userId, 
+      user: new mongoose.Types.ObjectId(actualUserId),
       items,
       amount,
       address,
     });
     await newOrder.save();
-    await userModel.findByIdAndUpdate(userId, { cartData: {} });
+    await userModel.findByIdAndUpdate(actualUserId, { cartData: {} });
 
     const line_items = items.map((item) => ({
       price_data: {
