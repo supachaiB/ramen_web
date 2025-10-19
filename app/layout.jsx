@@ -1,8 +1,8 @@
-import "../globals.css";
-import StoreContextProvider from "@/StoreContext/StoreContext";
-import NavbarWrapper from "./Components/NavbarWrapper";
-import Footer from "./Components/Footer";
+import StoreContextProvider from "@/StoreContext/StoreContext.jsx";
+import "./globals.css";
 import { Suspense } from "react";
+import NavbarWrapper from "./(site)/Components/NavbarWrapper.jsx";
+import Footer from "./(site)/Components/Footer.jsx";
 import Loading from "./loading";
 
 

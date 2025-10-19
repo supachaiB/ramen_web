@@ -1,5 +1,5 @@
+import FoodItemServer from "./(site)/fooditems/FoodItemServer";
 
-import FoodItemServer from "./fooditems/FoodItemServer.jsx";
 
 export default function Page() {
 
