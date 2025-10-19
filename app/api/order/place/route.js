@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import connectMongoDB from "@/libs/mongodb";
 import { NextResponse } from "next/server";
 import { verifyToken } from "@/middleware/auth";
