@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // domains: ['localhost'], // ให้ next/image โหลดรูปจาก localhost
+    domains: ['localhost'], // ให้ next/image โหลดรูปจาก localhost
     remotePatterns: [
       {
         // protocol: "http",
