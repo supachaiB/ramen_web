@@ -8,11 +8,12 @@ import { NextResponse } from "next/server";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const url = process.env.NEXT_PUBLIC_BASE_URI  //  url - use server
 
-if (!url) {
-    return null;
-}
-
 export const placeOrder = async ({ userId, items, amount, address }) => {
+
+
+  if (!url) {
+    return null;
+  }
 
   //main is newOrder  
   try {
