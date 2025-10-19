@@ -8,7 +8,7 @@ export async function POST(req) {
   try {
     await connectMongoDB();
 
-    const userId = verifyToken(req); // ✅ ได้ userId
+    const { id: userId } = verifyToken(req); // ✅ ได้ userId
     const body = await req.json();
     // console.log("UserId:", userId);
     // console.log("Body:", body);
