@@ -14,6 +14,10 @@ export default function Add() {
         category: "อาหาร"
     })
 
+    if (!url) {
+        return null;
+    }
+
     useEffect(() => {
         console.log(data);
     }, [data])

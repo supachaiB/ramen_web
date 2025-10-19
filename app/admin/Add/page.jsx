@@ -15,6 +15,10 @@ export default function Add() {
         category: "Ramen"
     })
 
+    if (!url) {
+        return null;
+    }
+
     useEffect(() => {
         console.log(data);
     }, [data])

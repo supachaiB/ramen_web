@@ -8,6 +8,9 @@ export default function ListGallery() {
     const { url } = useContext(StoreContext)
     const [galleries, setGallery] = useState([])
 
+    if (!url) {
+        return null;
+    }
     // ดึงข้อมูล API
     useEffect(() => {
         async function getGallery() {

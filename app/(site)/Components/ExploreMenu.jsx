@@ -10,12 +10,17 @@ export default function ExploreMenu({ onCategorySelect }) {
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
+    if (!url) {
+        return null;
+    }
+
     const categoryOrder = ["ramen", "side menu", "drink"];
     const categoryNames = {
         ramen: "เมนูหลัก",
         "side menu": "เมนูเสริม",
         drink: "เครื่องดื่ม",
     };
+
 
     useEffect(() => {
         async function fetchCategories() {

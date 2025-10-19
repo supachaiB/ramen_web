@@ -14,6 +14,10 @@ export default function reviewPopup() {
     const searchParams = useSearchParams();
     const itemId = searchParams.get("itemId")
 
+    if (!url) {
+        return null;
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 

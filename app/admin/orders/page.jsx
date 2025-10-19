@@ -8,7 +8,10 @@ import { useContext, useEffect, useState } from "react";
 export default function Orders() {
     const [orders, setOrders] = useState([]);
     const { url } = useContext(StoreContext);
-
+    
+    if (!url) {
+        return null;
+    }
     const fetchAllOrders = async () => {
         try {
             const response = await axios.get(url + "/api/order/list");
@@ -61,8 +64,8 @@ export default function Orders() {
                                 src={assets.parcel_icon}
                                 alt="Parcel"
                                 width={60}
-                                height={50} 
-                                />
+                                height={50}
+                            />
                             <div className="flex flex-col gap-1 text-sm">
                                 <p>{order.items.map((item, idx) =>
                                     idx === order.items.length - 1

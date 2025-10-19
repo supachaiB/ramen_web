@@ -7,6 +7,10 @@ import { useRouter } from "next/navigation";
 const PlaceOrder = () => {
     const { lists, cartItems, getTotalCartAmount, url, token } = useContext(StoreContext)
 
+    if (!url) {
+        return null;
+    }
+
     const [data, setData] = useState({
         firstName: "",
         lastName: "",
@@ -50,7 +54,7 @@ const PlaceOrder = () => {
         let response = await axios.post(
             url + "/api/order/place",
             orderData,
-            { headers: { Authorization: `Bearer ${token}` } }   
+            { headers: { Authorization: `Bearer ${token}` } }
         );
         if (response.data.success) {
             const { session_url } = response.data;
@@ -92,7 +96,7 @@ const PlaceOrder = () => {
                         <input required name='zipcode' onChange={onChangeHandler} value={data.zipcode} type="text" placeholder="Zip code" className="flex-1 border rounded px-3 py-2" />
                         <input required name='country' onChange={onChangeHandler} value={data.country} type="text" placeholder="Country" className="flex-1 border rounded px-3 py-2" />
                     </div>
-                    <input required name='phone' onChange={onChangeHandler} value={data.phone} type="text" placeholder="Phone" className="flex-1 border rounded px-3 py-2"/>
+                    <input required name='phone' onChange={onChangeHandler} value={data.phone} type="text" placeholder="Phone" className="flex-1 border rounded px-3 py-2" />
                 </div>
 
                 <div className="w-full md:w-1/3 flex-shrink-0 space-y-4">

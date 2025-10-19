@@ -10,6 +10,10 @@ export default function LoginPopup() {
     const { url, setToken, setShowLogin, showLogin } = useContext(StoreContext)
     const [currState, setCurrState] = useState("Login")
 
+    if (!url) {
+        return null;
+    }
+
     const [data, setData] = useState({
         name: "",
         email: "",

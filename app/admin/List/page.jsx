@@ -9,6 +9,10 @@ export default function List() {
     const { url } = useContext(StoreContext);
     const [lists, setLists] = useState([]);
 
+    if (!url) {
+        return null;
+    }
+    
     // ดึงข้อมูล API
     useEffect(() => {
         async function getFood() {
@@ -65,10 +69,10 @@ export default function List() {
                     <div key={l._id} className="list-table-format grid grid-cols-6 gap-4 font-bold border-b-2 border-gray-300 pb-2">
                         <Image src={`${url}/uploads/${l.imageUrl}`}
                             alt={l.name}
-                            className="" 
+                            className=""
                             width={150}
                             height={150}
-                            />
+                        />
                         <p>{l.name}</p>
                         <p>{l.category}</p>
                         <p>{l.description}</p>

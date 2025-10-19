@@ -10,6 +10,10 @@ export default function Gallery() {
     const [galleries, setGallery] = useState([])
     const [currentIndex, setCurrentIndex] = useState(null) // index ของรูปที่เลือก
 
+    if (!url) {
+        return null;
+    }
+
     // ดึงข้อมูล API
     useEffect(() => {
         async function getGallery() {
