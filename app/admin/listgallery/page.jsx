@@ -11,6 +11,7 @@ export default function ListGallery() {
     if (!url) {
         return null;
     }
+    
     // ดึงข้อมูล API
     useEffect(() => {
         async function getGallery() {

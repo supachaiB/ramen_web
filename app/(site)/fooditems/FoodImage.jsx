@@ -2,6 +2,11 @@
 import Image from "next/image";
 
 export default function FoodImage({ url, imageUrl, name }) {
+    
+    if (!url) {
+        return null;
+    }
+
     return (
         <Image
             src={`${url}/uploads/${imageUrl}`}

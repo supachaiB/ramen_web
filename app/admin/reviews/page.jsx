@@ -5,10 +5,11 @@ import { useContext, useEffect } from "react";
 export default function ReviewEdit() {
   const { reviews, setReviews, url } = useContext(StoreContext);
 
+   if (!url) {
+        return null;
+    }
   // โหลดรีวิวทั้งหมด
   useEffect(() => {
-    if (!url) return;
-
     async function fetchReviews() {
       try {
         const res = await fetch(url + "/api/reviews");

@@ -12,6 +12,7 @@ export default function Orders() {
     if (!url) {
         return null;
     }
+    
     const fetchAllOrders = async () => {
         try {
             const response = await axios.get(url + "/api/order/list");

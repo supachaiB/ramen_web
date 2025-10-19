@@ -14,6 +14,10 @@ export default function FoodItem({ lists, ratings, url }) {
     const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
+    if (!url) {
+        return null;
+    }
+    
     // filter 
     const filteredLists = selectedCategory
         ? lists.filter(l => l.category === selectedCategory)
