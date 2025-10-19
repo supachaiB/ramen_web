@@ -4,12 +4,12 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="bg-neutral-900 text-gray-300 px-6 md:px-20 py-12 border-t border-gray-800 min-h-[400px]">
+        <footer className="bg-neutral-900 text-gray-300 px-6 md:px-20 py-12 border-t border-gray-800 ">
             {/* Content Grid */}
             <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
                 {/* ABOUT US */}
-                <div>
+                <div className="min-h-[200px]">
                     <h1 className="text-2xl font-semibold text-white mb-4">ABOUT US</h1>
                     <p className="text-sm leading-6 mb-4">
                         We are passionate about bringing authentic Japanese ramen to your table.
@@ -24,7 +24,7 @@ export default function Footer() {
                 </div>
 
                 {/* ORDER */}
-                <div>
+                <div className="min-h-[200px]">
                     <h2 className="text-2xl font-semibold text-white mb-4">ORDER</h2>
                     <ul className="space-y-2 text-sm">
                         {["Ramen", "Drink", "Side Menu"].map((item) => (
@@ -39,7 +39,7 @@ export default function Footer() {
                 </div>
 
                 {/* CONTACT */}
-                <div>
+                <div className="min-h-[200px]">
                     <h2 className="text-2xl font-semibold text-white mb-4">CONTACT</h2>
                     <p className="text-sm mb-3">
                         Visit us at our main branch in Bangkok or reach out anytime.
@@ -59,7 +59,7 @@ export default function Footer() {
                 </div>
 
                 {/* FOLLOW US */}
-                <div>
+                <div className="min-h-[200px]">
                     <h2 className="text-2xl font-semibold text-white mb-4">FOLLOW US</h2>
                     <div className="flex items-center gap-5 h-[40px]">
                         {[
@@ -78,7 +78,7 @@ export default function Footer() {
                                     width={28}
                                     height={28}
                                     className="hover:scale-110 hover:brightness-125 transition-transform duration-300 cursor-pointer"
-                                    loading="lazy"
+                                    placeholder="empty" // หรือใช้ blurDataURL
                                 />
                             </Link>
                         ))}
@@ -91,7 +91,7 @@ export default function Footer() {
                 className="mt-10 border-t border-gray-700 pt-6 text-center text-sm 
             text-gray-400 select-none"
             >
-                 © {new Date().getFullYear()}{" "}
+                © {new Date().getFullYear()}{" "}
                 <span className="text-orange-600">RamenDelivery.com</span>
                 . All rights reserved.
             </div>
