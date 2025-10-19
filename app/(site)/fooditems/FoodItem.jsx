@@ -1,60 +1,35 @@
-'use client'
+"use client"
 
 import { assets } from "@/public/assets/assets";
-import { useContext, useEffect, useState } from "react";
-import { StoreContext } from "../../../StoreContext/StoreContext"
-import ExploreMenu from "../Components/ExploreMenu";
-import Link from "next/link";
+import { useContext, useState } from "react";
+import { StoreContext } from "@/StoreContext/StoreContext";
+import FoodImage from "./FoodImage";
 import { FaRegStar, FaStar } from "react-icons/fa";
+import Link from "next/link";
+import ExploreMenu from "../Components/ExploreMenu";
+import Image from "next/image"
 
-
-export default function FoodItem() {
-    const { url, lists, cartItems, addToCart, removeFromCart } = useContext(StoreContext);
+export default function FoodItem({ lists, ratings, url }) {
+    // console.log(lists, ratings, url)
+    const { cartItems, addToCart, removeFromCart } = useContext(StoreContext);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [items, setItems] = useState([]);
 
-    // filter เมนู
+    // filter 
     const filteredLists = selectedCategory
         ? lists.filter(l => l.category === selectedCategory)
         : lists;
-
-
-    const sortedLists = [...filteredLists].sort((a, b) => {
-        if (a.category === "ramen" && b.category !== "ramen") return -1; // a ขึ้นก่อน
-        if (a.category !== "ramen" && b.category === "ramen") return 1;  // b ขึ้นก่อน
-        return 0; // อื่น ๆ ตามเดิม
-    });
-
-    useEffect(() => {
-        async function fetchRatings() {
-            try {
-                const res = await fetch("/api/ratings");
-                const data = await res.json();
-                console.log("⭐ Ratings data:", data);
-
-                setItems(data.map(d => ({
-                    ...d,
-                    _id: d._id || d.id,  // ✅ รองรับทั้ง id และ _id
-                })));
-
-            } catch (error) {
-                console.log("fechRatings error", error)
-            }
-
-        }
-        fetchRatings();
-    }, []);
-
     return (
+    
         <div className="p-6">
             <ExploreMenu onCategorySelect={setSelectedCategory} />
             <h1 className="text-3xl font-bold mt-6 mb-4 text-center">Menu</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 ">
-                {sortedLists.map((l) => {
+                {
+                filteredLists.map(l => {
                     const count = cartItems[l._id] || 0;
 
                     // ✅ หาค่า avgRating และ reviewCount ของ item นั้นจาก items
-                    const ratingData = items.find((r) => r._id === l._id);
+                    const ratingData = ratings.find(r => r._id === l._id);
                     const avgRating = ratingData ? ratingData.avgRating : 0;
                     const reviewCount = ratingData ? ratingData.reviewCount : 0;
 
@@ -66,22 +41,21 @@ export default function FoodItem() {
                             transition-transform hover:-translate-y-1 overflow-hidden relative"
                         >
                             {/* ส่วนของภาพ */}
-                            <div className="relative w-full aspect-square">
-                                <img
-                                    src={`${url}/uploads/${l.imageUrl}`}
-                                    alt={l.name}
-                                    className="w-full h-full object-cover"
-                                />
+                            <div className="relative aspect-square bg-gray-100 overflow-hidden">
+                                <FoodImage url={url} imageUrl={l.imageUrl} name={l.name} />
 
                                 {/* ปุ่มเพิ่ม / ลบสินค้า */}
                                 {count === 0 ? (
                                     <button
                                         onClick={() => addToCart(l._id)}
-                                        className="absolute bottom-3 right-3 rounded-full cursor-pointer"
+                                        className="absolute bottom-3 right-3 w-[50px] h-[50px] flex items-center justify-center"
                                     >
-                                        <img
+                                        <Image
                                             src={assets.add_icon_white}
                                             alt="add"
+                                            width={45}
+                                            height={45}
+                                            loading="lazy"
                                             className="cursor-pointer"
                                         />
                                     </button>
@@ -92,17 +66,23 @@ export default function FoodItem() {
                                         px-3 py-1 shadow-lg"
                                     >
                                         <button onClick={() => removeFromCart(l._id)}>
-                                            <img
+                                            <Image
                                                 src={assets.remove_icon_red}
                                                 alt="remove"
+                                                width={40}
+                                                height={40}
+                                                loading="lazy"
                                                 className="cursor-pointer"
                                             />
                                         </button>
                                         <p className="font-semibold text-gray-800">{count}</p>
                                         <button onClick={() => addToCart(l._id)}>
-                                            <img
+                                            <Image
                                                 src={assets.add_icon_green}
                                                 alt="add"
+                                                width={40}
+                                                height={40}
+                                                loading="lazy"
                                                 className="cursor-pointer"
                                             />
                                         </button>

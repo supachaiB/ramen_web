@@ -1,6 +1,7 @@
 'use client'
 
 import { StoreContext } from "@/StoreContext/StoreContext";
+import Image from "next/image";
 import { useState, useEffect, useContext } from "react";
 
 
@@ -64,23 +65,23 @@ export default function Gallery() {
     }
 
     return (
-        <>
-            <div className="text-center text-2xl font-bold my-5">Gallery</div>
+        <div className="pt-20">
+            <div className="text-center text-2xl font-bold">Gallery</div>
 
             {/* grid */}
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-5">
                 {galleries.map((g, i) => (
-                    <div key={g._id} className="cursor-pointer rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-transform hover:-translate-y-1">
-                        <img
+                    <div key={g._id} className="relative w-full aspect-square cursor-pointer 
+                    rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-transform 
+                    hover:-translate-y-1">
+                        <Image
                             src={`${url}/uploads/${g.imageUrl}`}
                             alt={g.name}
-                            className="w-full h-48 object-cover "
+                            fill
+                            sizes="(max-width: 640px) 100vw, 25vw"
+                            className="object-cover"
                             onClick={() => openModal(i)}
                         />
-                         <div className="p-2 text-center">
-                            <p className="font-semibold">{g.name}</p>
-                            <p className="text-gray-500 text-sm">{g.category}</p>
-                        </div>
                     </div>
                 ))}
             </div>
@@ -116,11 +117,13 @@ export default function Gallery() {
                         {/* Thumbnail อยู่ด้านล่างรูป */}
                         <div className="flex gap-2 overflow-x-auto max-w-[80vw] p-2">
                             {galleries.map((g, i) => (
-                                <img
+                                <Image
                                     key={g._id}
                                     src={`${url}/uploads/${g.imageUrl}`}
                                     alt={g.name}
-                                    className={`w-20 h-20 object-cover cursor-pointer rounded 
+                                    width={60}
+                                    height={40}
+                                    className={` object-cover cursor-pointer rounded 
                                         ${i === currentIndex ? "ring-4 ring-white" : "opacity-60"}`}
                                     onClick={() => setCurrentIndex(i)}
                                 />
@@ -137,7 +140,7 @@ export default function Gallery() {
                     </button>
                 </div>
             )}
-        </>
+        </div>
     )
 }
 

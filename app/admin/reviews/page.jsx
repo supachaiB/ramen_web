@@ -51,11 +51,18 @@ export default function ReviewEdit() {
     }
   }
 
+  // {reviews === null ? ( แสดงแท่งสีเทาแทน table → layout ไม่ขยับมาก → CLS ลด
   return (
     <div className="p-4">
       <h1 className="text-xl font-bold mb-4">จัดการรีวิว (Admin)</h1>
 
-      {(!reviews || reviews.length === 0) ? (
+      {reviews === null ? (
+        <div className="space-y-2">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="h-6 bg-gray-200 rounded animate-pulse w-full" />
+          ))}
+        </div>
+      ) : reviews.length === 0 ? (
         <p className="text-gray-500">ยังไม่มีรีวิว</p>
       ) : (
         <div className="overflow-x-auto">

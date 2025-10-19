@@ -11,7 +11,7 @@ export default function Contact() {
         <div className="p-4 sm:p-6 max-w-6xl mx-auto space-y-8">
 
             {/* Map */}
-            <div className="w-full h-64 sm:h-96 rounded ">
+            <div className="w-full pt-6 h-64 sm:h-96 rounded ">
                 <Map />
             </div>
 

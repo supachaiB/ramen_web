@@ -1,7 +1,9 @@
+
 'use client'
 import { useContext } from "react"
-import { StoreContext } from "../../../StoreContext/StoreContext";
 import Link from "next/link";
+import { StoreContext } from "@/StoreContext/StoreContext";
+import Image from "next/image";
 
 
 export default function CartPage() {
@@ -11,7 +13,7 @@ export default function CartPage() {
 
     return (
         <div className="p-6 max-w-6xl mx-auto">
-            <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
+            <h1 className="text-2xl font-bold mb-4 pt-20">Shopping Cart</h1>
 
             <div className="hidden md:grid grid-cols-6 gap-3 font-semibold border-b pb-2">
                 <p>Items</p>
@@ -30,7 +32,12 @@ export default function CartPage() {
                     if (cartItems[item._id] > 0) {
                         return (
                             <div key={item._id} className="border-b pb-2 md:grid grid-cols-6 gap-3 items-center flex flex-col md:flex-row">
-                                <img className="w-24 h-24 object-cover rounded" src={`${url}/uploads/${item.imageUrl}`} alt="" />
+                                <Image 
+                                className="w-24 h-24 object-cover rounded" 
+                                width={300}
+                                height={300}
+                                src={`${url}/uploads/${item.imageUrl}`} 
+                                alt="" />
                                 <p>{item.name}</p>
                                 <p>{item.price}</p>
                                 <p>{cartItems[item._id]}</p>

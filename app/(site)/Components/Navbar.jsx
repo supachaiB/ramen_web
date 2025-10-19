@@ -3,6 +3,7 @@ import { assets } from "@/public/assets/assets";
 import { useContext, useEffect, useState } from "react";
 import { StoreContext } from "../../../StoreContext/StoreContext";
 import Link from "next/link";
+import Image from "next/image";
 
 
 export default function Navbar({ setShowLogin }) {
@@ -35,7 +36,7 @@ export default function Navbar({ setShowLogin }) {
   }, [token])
 
   return (
-    <nav className="bg-gray-900 text-white">
+    <nav className="bg-gray-900 text-white fixed w-full z-50 min-h-[60px]">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
         {/* โลโก้ */}
         <Link href="/" className="cursor-pointer text-xl text-orange-500">
@@ -53,12 +54,10 @@ export default function Navbar({ setShowLogin }) {
         {/* เมนูหลัก */}
         <ul
           className={`
-            flex flex-col gap-6 
-            bg-gray-900 top-[60px] w-full h-screen z-50 absolute
-            transition-all duration-300 
-            left-0 p-6 
-            md:flex-row md:static md:w-auto md:h-auto md:gap-10 md:p-0 
-            ${menuOpen ? "items-center" : "opacity-0 invisible md:opacity-100 md:visible "}`}
+             fixed top-[60px] left-0 w-full h-screen bg-gray-900 flex flex-col items-center
+             gap-6 p-6 z-50 transition-transform duration-300 
+             md:flex-row md:static md:w-auto md:h-auto md:p-0 md:translate-x-0
+              ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           <Link href="/" className="hover:text-orange-400" onClick={() => setMenuOpen(false)}>
             Home
@@ -92,7 +91,7 @@ export default function Navbar({ setShowLogin }) {
                   onClick={() => setMenuOpen(false)}
                   className="hover:text-orange-400"
                 >
-                  Cart 
+                  Cart
                 </Link>
 
                 <Link
@@ -121,10 +120,12 @@ export default function Navbar({ setShowLogin }) {
         <div className="hidden md:flex items-center gap-8">
           {/* ตะกร้า */}
           <Link href="/cart" className="relative cursor-pointer">
-            <img
+            <Image
               src={assets.basket_icon}
-              alt=""
-              className="w-6 h-6 filter invert brightness-0"
+              alt="cart"
+              width={18}
+              height={18}
+              className=" rounded-full w-8 h-auto filter invert brightness-0"
             />
             {getTotalCartAmount() > 0 && (
               <div className="absolute min-w-[10px] min-h-[10px] bg-red-500 rounded-md top-[-6px] right-[-6px]"></div>
@@ -141,10 +142,12 @@ export default function Navbar({ setShowLogin }) {
             </button>
           ) : (
             <div className="relative group">
-              <img
+              <Image
                 src={assets.profile_icon}
                 alt="profile"
-                className="w-6 h-8 rounded-full cursor-pointer filter invert brightness-0"
+                width={18}
+                height={18}
+                className="rounded-full w-8 h-auto cursor-pointer filter invert brightness-0"
               />
               <div
                 className="absolute right-0 top-full hidden group-hover:flex flex-col gap-2 
@@ -155,7 +158,12 @@ export default function Navbar({ setShowLogin }) {
                   href="/myorders"
                   className="flex items-center gap-2 hover:text-[tomato]"
                 >
-                  <img src={assets.bag_icon} alt="orders" className="w-5" />
+                  <img src={assets.bag_icon}
+                    alt="orders"
+                    width={18}
+                    height={18}
+                    className="w-6 h-auto"
+                  />
                   Orders
                 </Link>
                 <hr />
@@ -163,7 +171,12 @@ export default function Navbar({ setShowLogin }) {
                   onClick={logout}
                   className="flex items-center gap-2 hover:text-[tomato]"
                 >
-                  <img src={assets.logout_icon} alt="logout" className="w-5" />
+                  <Image src={assets.logout_icon}
+                    alt="logout"
+                    width={18}
+                    height={18}
+                    className="w-6 h-auto"
+                  />
                   Logout
                 </button>
               </div>
@@ -174,4 +187,3 @@ export default function Navbar({ setShowLogin }) {
     </nav>
   );
 }
-

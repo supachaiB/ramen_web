@@ -22,6 +22,8 @@ const StoreContextProvider = (props) => {
     const [showLogin, setShowLogin] = useState(false);
 
     const [reviews, setReviews] = useState([]);
+    
+    const [orders, setOrders] = useState([])
 
     // add to cart
     const addToCart = async (itemId) => {
@@ -138,7 +140,9 @@ const StoreContextProvider = (props) => {
         showLogin,
         setShowLogin,
         reviews, 
-        setReviews
+        setReviews,
+        orders, 
+        setOrders
     }
 
     return (

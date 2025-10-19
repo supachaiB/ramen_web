@@ -2,6 +2,7 @@
 import { assets } from "@/public/assets/assets";
 import { StoreContext } from "@/StoreContext/StoreContext";
 import axios from "axios"
+import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 
 export default function Orders() {
@@ -56,12 +57,17 @@ export default function Orders() {
                     <div key={order._id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border rounded-lg shadow-sm hover:shadow-md transition">
                         {/* Left: Info */}
                         <div className="flex items-start sm:items-center gap-4 flex-1">
-                            <img src={assets.parcel_icon} alt="Parcel" className="w-12 h-12" />
+                            <Image
+                                src={assets.parcel_icon}
+                                alt="Parcel"
+                                width={60}
+                                height={50} 
+                                />
                             <div className="flex flex-col gap-1 text-sm">
-                                <p>{order.items.map((item, idx) => 
-                                    idx === order.items.length - 1 
-                                    ? `${item.name} x ${item.quantity}` 
-                                    : `${item.name} x ${item.quantity}, `
+                                <p>{order.items.map((item, idx) =>
+                                    idx === order.items.length - 1
+                                        ? `${item.name} x ${item.quantity}`
+                                        : `${item.name} x ${item.quantity}, `
                                 )}</p>
                                 <p>{order.address.firstName} {order.address.lastName}</p>
                                 <p className="text-gray-500 text-sm">{order.address.street}, {order.address.city}, {order.address.state}, {order.address.country}, {order.address.zipcode}</p>
@@ -72,8 +78,8 @@ export default function Orders() {
 
                         {/* Right: Status + Buttons */}
                         <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 gap-2 mt-2 sm:mt-0">
-                            <select 
-                                onChange={(e) => statusHandler(e, order._id)} 
+                            <select
+                                onChange={(e) => statusHandler(e, order._id)}
                                 value={order.status}
                                 className="border border-gray-300 rounded px-2 py-1 text-sm"
                             >
@@ -82,7 +88,7 @@ export default function Orders() {
                                 <option value="Delivered">Delivered</option>
                             </select>
 
-                            <button 
+                            <button
                                 onClick={() => deleteOrder(order._id)}
                                 className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition text-sm"
                             >

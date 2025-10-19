@@ -3,9 +3,10 @@ import { assets } from "@/public/assets/assets"
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { StoreContext } from "@/StoreContext/StoreContext";
+import Image from "next/image";
 
 export default function Add() {
-    const { url } = useContext( StoreContext)
+    const { url } = useContext(StoreContext)
     const [image, setImage] = useState(false);
     const [data, setData] = useState({
         name: "",
@@ -55,7 +56,12 @@ export default function Add() {
                 <div className="add-img-upload flex-col">
                     <p>Upload Image</p>
                     <label htmlFor="image">
-                        <img src={image ? URL.createObjectURL(image) : assets.upload_area} alt="Upload" />
+                        <Image
+                            src={image ? URL.createObjectURL(image) : assets.upload_area}
+                            alt="Upload"
+                            width={120}
+                            height={100}
+                        />
                     </label>
                     <input onChange={(e) => setImage(e.target.files[0])}
                         type="file" id="image" hidden required />

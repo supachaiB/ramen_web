@@ -1,10 +1,11 @@
 'use client'
 
 import { StoreContext } from "@/StoreContext/StoreContext";
+import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 
 export default function ListGallery() {
-    const { url } = useContext( StoreContext )
+    const { url } = useContext(StoreContext)
     const [galleries, setGallery] = useState([])
 
     // ดึงข้อมูล API
@@ -67,7 +68,10 @@ export default function ListGallery() {
                 </div>
                 {galleries.map((g) => (
                     <div key={g._id} className="list-table-format grid grid-cols-6 gap-4 font-bold border-b-2 border-gray-300 pb-2">
-                        <img src={`${url}/uploads/${g.imageUrl}`} alt={g.name} className="" />
+                        <Image src={`${url}/uploads/${g.imageUrl}`} alt={g.name}
+                            width={150}
+                            height={150}
+                        />
                         <p>{g.name}</p>
                         <p>{g.category}</p>
                         <p onClick={() => handleDelete(g._id)} className="cursor cursor-pointer">X</p>

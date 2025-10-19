@@ -1,11 +1,12 @@
 'use client'
 
 import { StoreContext } from "@/StoreContext/StoreContext";
+import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
 
 
 export default function List() {
-    const { url } = useContext( StoreContext );
+    const { url } = useContext(StoreContext);
     const [lists, setLists] = useState([]);
 
     // ดึงข้อมูล API
@@ -62,7 +63,12 @@ export default function List() {
                 </div>
                 {lists.map((l) => (
                     <div key={l._id} className="list-table-format grid grid-cols-6 gap-4 font-bold border-b-2 border-gray-300 pb-2">
-                        <img src={`${url}/uploads/${l.imageUrl}`} alt={l.name} className="" />
+                        <Image src={`${url}/uploads/${l.imageUrl}`}
+                            alt={l.name}
+                            className="" 
+                            width={150}
+                            height={150}
+                            />
                         <p>{l.name}</p>
                         <p>{l.category}</p>
                         <p>{l.description}</p>

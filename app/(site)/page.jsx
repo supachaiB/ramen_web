@@ -1,12 +1,12 @@
 
-import FoodItem from "./fooditems/page.jsx";
+import FoodItemServer from "./fooditems/FoodItemServer.jsx";
 
 export default function Page() {
 
 
   return (
     <>
-      <FoodItem />
+      <FoodItemServer />
     </>
   );
 }

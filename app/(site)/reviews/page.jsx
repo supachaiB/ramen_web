@@ -35,7 +35,7 @@ export default function Reviews() {
     };
 
     return (
-        <div className="p-6 max-w-5xl mx-auto">
+        <div className="p-6 pt-20 max-w-5xl mx-auto">
             <h1 className="text-2xl font-bold mb-6 text-center">คะแนนของอาหาร</h1>
             {reviews.length === 0 ? (
                 <p className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">ยังไม่มีรีวิว</p>
