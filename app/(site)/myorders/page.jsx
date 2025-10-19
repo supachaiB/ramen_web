@@ -4,8 +4,8 @@ import { useContext, useEffect, useState } from "react"
 import { StoreContext } from "../../../StoreContext/StoreContext"
 import axios from "axios";
 import { assets } from "@/public/assets/assets";
-import TrackOrderPopup from "../trackorder/[id]/page.jsx";
 import Image from "next/image";
+import TrackOrderPopup from "../trackorder/page";
 
 export default function MyOrders() {
     const { token, orders, setOrders } = useContext(StoreContext);
