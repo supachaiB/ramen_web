@@ -12,10 +12,6 @@ export default function MyOrders() {
     const [showPopup, setShowPopup] = useState(false);
     const [selectedOrderId, setSelectedOrderId] = useState(null);
 
-    if (!url) {
-        return null;
-    }
-
     const fetchOrders = async () => {
         try {
             const res = await axios.post("/api/order/userorders", {}, { headers: { token } });
