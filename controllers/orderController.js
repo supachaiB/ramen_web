@@ -25,7 +25,7 @@ export const placeOrder = async ({ userId, items, amount, address }) => {
       items,
       amount,
       address,
-    }).lean(); // .lean คืนค่า plain JS object
+    })
     await newOrder.save();
     await userModel.findByIdAndUpdate(actualUserId, { cartData: {} });
 

@@ -1,4 +1,4 @@
-import FoodItemServer from "./(site)/fooditems/FoodItemServer";
+import FoodItemClient from "./(site)/fooditems/FoodItemClient";
 
 //
 export default function Page() {
@@ -6,7 +6,7 @@ export default function Page() {
 
   return (
     <>
-      <FoodItemServer />
+      <FoodItemClient />
     </>
   );
 }

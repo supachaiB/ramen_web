@@ -52,7 +52,7 @@ const PlaceOrder = () => {
             amount: getTotalCartAmount()
         }
         let response = await axios.post(
-            url + "/api/order/place",
+            `${url}/api/order/place`,
             orderData,
             { headers: { Authorization: `Bearer ${token}` } }
         );

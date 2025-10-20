@@ -131,6 +131,7 @@ const StoreContextProvider = (props) => {
 
     const contextValue = {
         url,
+        setLists,
         baseUrl,
         token,
         setToken,

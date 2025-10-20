@@ -1,9 +1,10 @@
 'use client'
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
 import './Verify.css';
+import { StoreContext } from "@/StoreContext/StoreContext";
 
 export default function VerifyPage() {
   const searchParams = useSearchParams();
@@ -11,10 +12,10 @@ export default function VerifyPage() {
 
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
-
+  const { url } = useContext(StoreContext)
   const verifyPayment = async () => {
     try {
-      const response = await axios.post("/api/order/verify", {
+      const response = await axios.post(`${url}/api/order/verify`, {
         success,
         orderId
       });

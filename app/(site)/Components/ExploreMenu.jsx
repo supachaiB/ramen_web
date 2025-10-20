@@ -74,7 +74,7 @@ export default function ExploreMenu({ onCategorySelect }) {
                             width={350}
                             height={350}
                             className="h-32 w-full object-cover"
-                            loading="lazy"
+                            priority
                         />
                         <p className="text-center py-2 font-semibold capitalize">
                             {categoryNames[cat.category] || cat.category}

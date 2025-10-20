@@ -22,7 +22,7 @@ export async function POST(req) {
     // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new userModel({ name, email, password: hashedPassword }).lean();// .lean คืนค่า plain JS object
+    const newUser = new userModel({ name, email, password: hashedPassword })
     const user = await newUser.save();
 
     const token = createToken(user._id);
