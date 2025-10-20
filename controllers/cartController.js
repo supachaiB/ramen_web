@@ -15,7 +15,7 @@ export const addToCart = async (req) => {
         throw new Error("Invalid userId");
     }
 
-    const user = await userModel.findById(userId).lean(); // .lean คืนค่า plain JS object
+    const user = await userModel.findById(userId) // .lean คืนค่า plain JS object
     if (!user) throw new Error("User not found");
 
     const cartData = user.cartData || {};
