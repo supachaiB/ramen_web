@@ -56,7 +56,7 @@ export const getCart = async ({ userId, role }) => {
         return { success: true, cartData: {} };
     }
 
-    const user = await userModel.findById(userId).lean();
+    const user = await userModel.findById(userId)
     if (!user) throw new Error("User not found");
 
     const cartData = user.cartData || {};
