@@ -10,16 +10,13 @@ export default function Gallery() {
     const [galleries, setGallery] = useState([])
     const [currentIndex, setCurrentIndex] = useState(null) // index ของรูปที่เลือก
 
-    // if (!url) {
-    //     return null;
-    // }
+    if (!url) {
+        return null;
+    }
 
     // ดึงข้อมูล API
     useEffect(() => {
-        if (!url || url.trim() === "") {
-            console.log("URL is null, undefined, or empty");
-            return;
-        }
+
         async function getGallery() {
             try {
                 const response = await fetch(`${url}/api/gallery/list`, {
@@ -45,7 +42,7 @@ export default function Gallery() {
             }
         }
         getGallery();
-    }, [url])
+    }, [])
     console.log(galleries)
 
     // ฟังก์ชันเปิด modal
@@ -83,6 +80,7 @@ export default function Gallery() {
                     rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-transform 
                     hover:-translate-y-1">
                         <Image
+                            key={g._id}
                             src={g.imageUrl}
                             alt={g.name}
                             fill

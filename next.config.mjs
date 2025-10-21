@@ -10,7 +10,7 @@ const nextConfig = {
         pathname: "/uploads/**",
 
         // protocol: "https",
-        // hostname: "ramen-web-b77i.vercel.app",
+        // hostname: "ramen-web-iawm.vercel.app",
         // pathname: "/uploads/**",
       },
     ],
