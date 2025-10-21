@@ -40,7 +40,7 @@ export default function CartPage() {
                                 className="w-24 h-24 object-cover rounded" 
                                 width={300}
                                 height={300}
-                                src={`${url}/uploads/${item.imageUrl}`} 
+                                src={`/uploads/${item.imageUrl}`} 
                                 alt="" />
                                 <p>{item.name}</p>
                                 <p>{item.price}</p>
