@@ -46,9 +46,9 @@ export default function FoodItemClient() {
   if (!isClient) return null; // หรือ skeleton loading
 
   return (
-    <div className="p-6">
+    <div className="p-6 ">
       {loading ? (
-        <p>Loading...</p>
+        <p className="pt-20">Loading...</p>
       ) : error ? (
         <p>Error: {error.message}</p>
       ) : (
