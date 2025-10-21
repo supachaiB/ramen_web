@@ -10,12 +10,16 @@ export default function Gallery() {
     const [galleries, setGallery] = useState([])
     const [currentIndex, setCurrentIndex] = useState(null) // index ของรูปที่เลือก
 
-    if (!url) {
-        return null;
-    }
+    // if (!url) {
+    //     return null;
+    // }
 
     // ดึงข้อมูล API
     useEffect(() => {
+        if (!url || url.trim() === "") {
+            console.log("URL is null, undefined, or empty");
+            return;
+        }
         async function getGallery() {
             try {
                 const response = await fetch(`${url}/api/gallery/list`, {
@@ -41,7 +45,7 @@ export default function Gallery() {
             }
         }
         getGallery();
-    }, [])
+    }, [url])
     console.log(galleries)
 
     // ฟังก์ชันเปิด modal
