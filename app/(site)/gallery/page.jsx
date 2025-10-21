@@ -79,8 +79,8 @@ export default function Gallery() {
                     rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-transform 
                     hover:-translate-y-1">
                         <Image
-                            src={g.imageUrl}
-                            alt={g.name}
+                            src={galleries.imageUrl}
+                            alt={galleries.name}
                             fill
                             sizes="(max-width: 640px) 100vw, 25vw"
                             className="object-cover"
