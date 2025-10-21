@@ -80,8 +80,7 @@ export default function Gallery() {
                     rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-transform 
                     hover:-translate-y-1">
                         <Image
-                            key={g._id}
-                            src={g.imageUrl}
+                            src={`/uploads/${g.imageUrl}`}
                             alt={g.name}
                             fill
                             sizes="(max-width: 640px) 100vw, 25vw"
