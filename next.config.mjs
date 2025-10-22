@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost','ramen-web-virid.vercel.app'], // ให้ next/image โหลดรูปจาก localhost
+    domains: ['localhost','ramen-web-b77i.vercel.app'], // ให้ next/image โหลดรูปจาก localhost
     remotePatterns: [
       {
         protocol: "http",
